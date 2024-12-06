@@ -20,5 +20,15 @@ public:
 
 	virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
 
+	UFUNCTION()
+	void SettingButtonClicked();
 
+	UFUNCTION()
+	void ExitButtonClicked();
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UButton> SettingButton;
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UButton> ExitButton;
 };
