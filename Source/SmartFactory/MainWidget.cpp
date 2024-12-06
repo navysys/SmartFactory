@@ -11,10 +11,26 @@ void UMainWidget::NativeConstruct()
 	{
 		SettingButton->OnClicked.AddDynamic(this, &UMainWidget::SettingButtonClicked);
 	}
+
+	if (IsValid(ExitButton))
+	{
+		ExitButton->OnClicked.AddDynamic(this, &UMainWidget::ExitButtonClicked);
+	}
+
+	if (IsValid(HomeButton))
+	{
+		HomeButton->OnClicked.AddDynamic(this, &UMainWidget::HomeButtonClicked);
+	}
+
+	//if (IsValid(AlarmButton))
+	//{
+	//	AlarmButton->OnClicked.AddDynamic(this, &UMainWidget::AlarmButtonClicked);
+	//}
 }
 
 void UMainWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 {
+
 }
 
 void UMainWidget::SettingButtonClicked()
@@ -31,4 +47,22 @@ void UMainWidget::SettingButtonClicked()
 
 void UMainWidget::ExitButtonClicked()
 {
+	if (IsValid(ExitPopup))
+	{
+		UUserWidget* EPopup = CreateWidget<UUserWidget>(this, ExitPopup);
+		if (IsValid(EPopup))
+		{
+			EPopup->AddToViewport();
+		}
+	}
+}
+
+void UMainWidget::HomeButtonClicked()
+{
+	// 카메라 위치 초기화
+}
+
+void UMainWidget::AlarmButtonClicked()
+{
+
 }

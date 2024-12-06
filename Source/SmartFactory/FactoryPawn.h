@@ -6,6 +6,10 @@
 #include "GameFramework/Pawn.h"
 #include "FactoryPawn.generated.h"
 
+
+class UCameraComponent;
+class USpringArmComponent;
+
 UCLASS()
 class SMARTFACTORY_API AFactoryPawn : public APawn
 {
@@ -25,5 +29,17 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+
+public:
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<USceneComponent> RootComp;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<USpringArmComponent> SpringArmComp;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UCameraComponent> CameraComp;
+
 
 };

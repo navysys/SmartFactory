@@ -26,11 +26,23 @@ public:
 	UFUNCTION()
 	void ExitButtonClicked();
 
+	UFUNCTION()
+	void HomeButtonClicked();
+
+	UFUNCTION()
+	void AlarmButtonClicked();
+
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UButton> SettingButton;
 
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UButton> ExitButton;
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UButton> HomeButton;
+
+	//UPROPERTY(meta = (BindWidget))
+	//TObjectPtr<UButton> AlarmButton;
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UUserWidget> SettingPopup;
