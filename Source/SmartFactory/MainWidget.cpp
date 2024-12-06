@@ -4,6 +4,8 @@
 #include "MainWidget.h"
 #include "Components/Button.h"
 #include "Kismet/KismetSystemLibrary.h"
+#include "PopupModuleWidget.h"
+
 
 void UMainWidget::NativeConstruct()
 {
@@ -49,12 +51,14 @@ void UMainWidget::SettingButtonClicked()
 
 void UMainWidget::ExitButtonClicked()
 {
-	if (IsValid(ExitPopup))
+	if (IsValid(PopupWidget))
 	{
-		UUserWidget* EPopup = CreateWidget<UUserWidget>(this, ExitPopup);
-		if (IsValid(EPopup))
+		UPopupModuleWidget* ExitPopup = CreateWidget<UPopupModuleWidget>(this, PopupWidget);
+		if (IsValid(ExitPopup))
 		{
-			EPopup->AddToViewport();
+			ExitPopup->SetPopupTitleText(FText::FromString(TEXT("SHUTTING DOWN")));
+			ExitPopup->SetPopupContentText(FText::FromString(TEXT("Do you want Quit?")));
+			ExitPopup->AddToViewport();
 		}
 	}
 }
@@ -66,5 +70,4 @@ void UMainWidget::HomeButtonClicked()
 
 void UMainWidget::AlarmButtonClicked()
 {
-	UKismetSystemLibrary::QuitGame(this, 0, EQuitPreference::Quit, false);
 }

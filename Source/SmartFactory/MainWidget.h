@@ -2,13 +2,13 @@
 
 #pragma once
 
+
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "MainWidget.generated.h"
 
 
 class UButton;
-
 
 UCLASS()
 class SMARTFACTORY_API UMainWidget : public UUserWidget
@@ -48,5 +48,5 @@ public:
 	TSubclassOf<UUserWidget> SettingPopup;
 
 	UPROPERTY(EditAnywhere)
-	TSubclassOf<UUserWidget> ExitPopup;
+	TSubclassOf<class UPopupModuleWidget> PopupWidget;
 };
