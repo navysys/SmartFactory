@@ -31,4 +31,10 @@ public:
 
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UButton> ExitButton;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UUserWidget> SettingPopup;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UUserWidget> ExitPopup;
 };
