@@ -3,6 +3,7 @@
 
 #include "MainWidget.h"
 #include "Components/Button.h"
+#include "Kismet/KismetSystemLibrary.h"
 
 void UMainWidget::NativeConstruct()
 {
@@ -11,11 +12,15 @@ void UMainWidget::NativeConstruct()
 	{
 		SettingButton->OnClicked.AddDynamic(this, &UMainWidget::SettingButtonClicked);
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> aae9f8e9e4f9c8934a7954fd670409cfaf5d10f0
 	if (IsValid(ExitButton))
 	{
 		ExitButton->OnClicked.AddDynamic(this, &UMainWidget::ExitButtonClicked);
 	}
+<<<<<<< HEAD
 
 	if (IsValid(HomeButton))
 	{
@@ -26,6 +31,8 @@ void UMainWidget::NativeConstruct()
 	//{
 	//	AlarmButton->OnClicked.AddDynamic(this, &UMainWidget::AlarmButtonClicked);
 	//}
+=======
+>>>>>>> aae9f8e9e4f9c8934a7954fd670409cfaf5d10f0
 }
 
 void UMainWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
@@ -47,6 +54,7 @@ void UMainWidget::SettingButtonClicked()
 
 void UMainWidget::ExitButtonClicked()
 {
+<<<<<<< HEAD
 	if (IsValid(ExitPopup))
 	{
 		UUserWidget* EPopup = CreateWidget<UUserWidget>(this, ExitPopup);
@@ -65,4 +73,7 @@ void UMainWidget::HomeButtonClicked()
 void UMainWidget::AlarmButtonClicked()
 {
 
+=======
+	UKismetSystemLibrary::QuitGame(this, 0, EQuitPreference::Quit, false);
+>>>>>>> aae9f8e9e4f9c8934a7954fd670409cfaf5d10f0
 }
