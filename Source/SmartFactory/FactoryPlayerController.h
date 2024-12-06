@@ -18,7 +18,6 @@ class SMARTFACTORY_API AFactoryPlayerController : public APlayerController
 public:
 	virtual void BeginPlay() override;
 
-
 	TObjectPtr<UMainWidget> MainWidget;
 
 	UPROPERTY(EditAnywhere)

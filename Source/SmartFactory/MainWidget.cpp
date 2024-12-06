@@ -3,6 +3,7 @@
 
 #include "MainWidget.h"
 #include "Components/Button.h"
+#include "Kismet/KismetSystemLibrary.h"
 
 void UMainWidget::NativeConstruct()
 {
@@ -10,6 +11,10 @@ void UMainWidget::NativeConstruct()
 	if (IsValid(SettingButton))
 	{
 		SettingButton->OnClicked.AddDynamic(this, &UMainWidget::SettingButtonClicked);
+	}
+	if (IsValid(ExitButton))
+	{
+		ExitButton->OnClicked.AddDynamic(this, &UMainWidget::ExitButtonClicked);
 	}
 }
 
@@ -31,4 +36,5 @@ void UMainWidget::SettingButtonClicked()
 
 void UMainWidget::ExitButtonClicked()
 {
+	UKismetSystemLibrary::QuitGame(this, 0, EQuitPreference::Quit, false);
 }
