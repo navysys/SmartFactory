@@ -42,4 +42,9 @@ public:
 	TObjectPtr<UCameraComponent> CameraComp;
 
 
+public:
+	//UPROPERTY(EditAnywhere)
+
+
+
 };
