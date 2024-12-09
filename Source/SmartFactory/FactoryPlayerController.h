@@ -22,4 +22,7 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UUserWidget> MainWidgetClass;
+
+	//UPROPERTY(EditAnywhere)
+
 };
