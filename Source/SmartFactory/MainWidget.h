@@ -2,11 +2,9 @@
 
 #pragma once
 
-
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "MainWidget.generated.h"
-
 
 class UButton;
 
