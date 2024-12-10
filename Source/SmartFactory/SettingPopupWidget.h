@@ -6,7 +6,6 @@
 #include "Blueprint/UserWidget.h"
 #include "SettingPopupWidget.generated.h"
 
-
 class UButton;
 class UComboBoxString;
 /**
@@ -66,6 +65,5 @@ private:
 
 	//콤보박스 요소 추가(콤보박스 생성자 느낌)
 	void PopulateWindowModeOption();
-
 
 };

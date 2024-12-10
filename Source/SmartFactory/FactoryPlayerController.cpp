@@ -6,6 +6,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputMappingContext.h"
+#include "FactorySourceActor.h"
 
 void AFactoryPlayerController::BeginPlay()
 {
