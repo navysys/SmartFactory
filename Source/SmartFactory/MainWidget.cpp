@@ -5,6 +5,8 @@
 #include "Components/Button.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "PopupModuleWidget.h"
+#include "ItemWidget.h"
+#include "Components/TreeView.h"
 
 
 void UMainWidget::NativeConstruct()
@@ -30,6 +32,23 @@ void UMainWidget::NativeConstruct()
 	//	AlarmButton->OnClicked.AddDynamic(this, &UMainWidget::AlarmButtonClicked);
 	//}
 
+	TreeView->SetOnGetItemChildren(this, &UMainWidget::GetChildrenForItem);
+
+	UItemWidget* RootItem = NewObject<UItemWidget>();
+	RootItem->ItemText = TEXT("Root");
+
+	UItemWidget* ChildItem1 = NewObject<UItemWidget>();
+	ChildItem1->ItemText = TEXT("Child 1");
+
+	UItemWidget* ChildItem2 = NewObject<UItemWidget>();
+	ChildItem2->ItemText = TEXT("Child 2");
+
+	RootItem->Children.Add(ChildItem1);
+	RootItem->Children.Add(ChildItem2);
+
+	// Tree View에 루트 항목 설정
+	TArray<UItemWidget*> Items = {RootItem};
+	TreeView->SetListItems( Items);
 }
 
 void UMainWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
@@ -70,4 +89,36 @@ void UMainWidget::HomeButtonClicked()
 
 void UMainWidget::AlarmButtonClicked()
 {
+}
+
+void UMainWidget::CreateEntryWidget(int Index, int ChildIndex)
+{
+	UItemWidget* ItemWidget = CreateWidget<UItemWidget>(this);
+	TreeView->AddItem(ItemWidget);
+	UItemWidget* ItemWidget2 = CreateWidget<UItemWidget>(this);
+	
+}
+
+void UMainWidget::GetChildrenForItem(UObject* InItem, TArray<UObject*>& OutChildren)
+{
+	if (UItemWidget* TreeItem = Cast<UItemWidget>(InItem))
+	{
+		for (UItemWidget* Child : TreeItem->Children)
+		{
+			OutChildren.Add(Child);
+		}
+	}
+}
+
+void UMainWidget::AddChildToItem(UItemWidget* ParentItem, UItemWidget* NewChildItem)
+{
+	if (ParentItem)
+	{
+		// 부모 항목의 자식 배열에 새 항목 추가
+		ParentItem->Children.Add(NewChildItem);
+
+		// Tree View 갱신
+		TreeView->SetItemExpansion(ParentItem, true); // 부모 노드를 확장
+		TreeView->RequestRefresh();
+	}
 }

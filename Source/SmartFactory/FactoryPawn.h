@@ -9,6 +9,7 @@
 
 class UCameraComponent;
 class USpringArmComponent;
+class UFloatingPawnMovement;
 
 UCLASS()
 class SMARTFACTORY_API AFactoryPawn : public APawn
@@ -40,6 +41,9 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UCameraComponent> CameraComp;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UFloatingPawnMovement> PawnMovementComp;
 
 
 public:

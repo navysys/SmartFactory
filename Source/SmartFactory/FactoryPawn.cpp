@@ -4,6 +4,7 @@
 #include "FactoryPawn.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "GameFramework/FloatingPawnMovement.h"
 
 
 // Sets default values
@@ -20,6 +21,8 @@ AFactoryPawn::AFactoryPawn()
 
 	CameraComp = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	CameraComp->SetupAttachment(SpringArmComp);
+
+	PawnMovementComp = CreateDefaultSubobject<UFloatingPawnMovement>(TEXT("PawnMovement"));
 }
 
 // Called when the game starts or when spawned

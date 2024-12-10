@@ -9,6 +9,8 @@
 
 
 class UButton;
+class UTreeView;
+class UItemWidget;
 
 UCLASS()
 class SMARTFACTORY_API UMainWidget : public UUserWidget
@@ -32,6 +34,10 @@ public:
 	UFUNCTION()
 	void AlarmButtonClicked();
 
+	void CreateEntryWidget(int Index, int ChildIndex);
+	void GetChildrenForItem(UObject* InItem, TArray<UObject*>& OutChildren);
+	void AddChildToItem(UItemWidget* ParentItem, UItemWidget* NewChildItem);
+
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UButton> SettingButton;
 
@@ -40,6 +46,9 @@ public:
 
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UButton> HomeButton;
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UTreeView> TreeView;
 
 	//UPROPERTY(meta = (BindWidget))
 	//TObjectPtr<UButton> AlarmButton;

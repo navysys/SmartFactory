@@ -16,8 +16,14 @@ class SMARTFACTORY_API UItemWidget : public UUserWidget, public IUserObjectListE
 	GENERATED_BODY()
 	
 public:
+	virtual void NativeConstruct() override;
 	virtual void NativeOnListItemObjectSet(UObject* ListItemObject) override;
 
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UTextBlock> ItemName;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "TreeItem")
+	TArray<UItemWidget*> Children;
+
+	FString ItemText;
 };
