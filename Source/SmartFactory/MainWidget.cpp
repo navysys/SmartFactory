@@ -31,29 +31,31 @@ void UMainWidget::NativeConstruct()
 	//{
 	//	AlarmButton->OnClicked.AddDynamic(this, &UMainWidget::AlarmButtonClicked);
 	//}
+	if (IsValid(TreeView))
+	{
+		TreeView->SetOnGetItemChildren(this, &UMainWidget::GetChildrenForItem);
+		TreeView->OnItemClicked().AddUObject(this, &UMainWidget::OnTreeViewItemClicked);
+	}
+	
 
-	TreeView->SetOnGetItemChildren(this, &UMainWidget::GetChildrenForItem);
+	//UItemWidget* RootItem = NewObject<UItemWidget>();
+	//RootItem->ItemText = TEXT("Root");
 
-	UItemWidget* RootItem = NewObject<UItemWidget>();
-	RootItem->ItemText = TEXT("Root");
+	//UItemWidget* ChildItem1 = NewObject<UItemWidget>();
+	//ChildItem1->ItemText = TEXT("Child 1");
 
-	UItemWidget* ChildItem1 = NewObject<UItemWidget>();
-	ChildItem1->ItemText = TEXT("Child 1");
-
-	UItemWidget* ChildItem2 = NewObject<UItemWidget>();
-	ChildItem2->ItemText = TEXT("Child 2");
+	//UItemWidget* ChildItem2 = NewObject<UItemWidget>();
+	//ChildItem2->ItemText = TEXT("Child 2");
 
 	/*RootItem->Children.Add(ChildItem1);
 	RootItem->Children.Add(ChildItem2);*/
 
-	AddChildToItem(RootItem, ChildItem1);
-	AddChildToItem(RootItem, ChildItem2);
+	//AddChildToItem(RootItem, ChildItem1);
+	//AddChildToItem(RootItem, ChildItem2);
 
-	// Tree View에 루트 항목 설정
-	TArray<UItemWidget*> Items = {RootItem};
-	TreeView->SetListItems( Items);
-
-	TreeView->OnItemClicked().AddUObject(this, &UMainWidget::OnTreeViewItemClicked);
+	//// Tree View에 루트 항목 설정
+	//TArray<UItemWidget*> Items = { RootItem };
+	//TreeView->SetListItems(Items);
 }
 
 void UMainWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
@@ -96,12 +98,29 @@ void UMainWidget::AlarmButtonClicked()
 {
 }
 
-void UMainWidget::CreateEntryWidget(int Index, int ChildIndex)
+void UMainWidget::CreateTreeItem(int Index, int ChildIndex, AActor* OwningActor)
 {
-	UItemWidget* ItemWidget = CreateWidget<UItemWidget>(this);
-	TreeView->AddItem(ItemWidget);
-	UItemWidget* ItemWidget2 = CreateWidget<UItemWidget>(this);
-	
+	UItemWidget* RootItem = NewObject<UItemWidget>();
+	RootItem->ItemText = TEXT("Root");
+	RootItem->Actor = OwningActor;
+
+	Items.Add(RootItem);
+	TreeView->SetListItems(Items);
+
+	//else
+	//{
+	//	UItemWidget* ChildItem = NewObject<UItemWidget>();
+	//	ChildItem->ItemText = TEXT("Child");
+
+	//	UItemWidget* RootItem = *RootItems.Find(Index);
+	//	if (!IsValid(RootItem))
+	//	{
+	//		RootItem = NewObject<UItemWidget>();
+	//		RootItem->ItemText = TEXT("Root");
+	//		RootItems.Add(Index, RootItem);
+	//	}
+	//	AddChildToItem(RootItem, ChildItem);
+	//}
 }
 
 void UMainWidget::GetChildrenForItem(UObject* InItem, TArray<UObject*>& OutChildren)
@@ -133,6 +152,6 @@ void UMainWidget::OnTreeViewItemClicked(UObject* ClickedItem)
 	if (UItemWidget* TreeItem = Cast<UItemWidget>(ClickedItem))
 	{
 		// 항목 클릭 시 실행할 동작
-		UE_LOG(LogTemp, Log, TEXT("Clicked Item: %s"), *TreeItem->ItemText);
+		GetOwningPlayer()->GetPawn()->SetActorLocation(TreeItem->Actor->GetActorLocation());
 	}
 }

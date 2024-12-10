@@ -25,6 +25,10 @@ void AFactorySourceActor::BeginPlay()
 	 {
 		 PC->FactorySource.Emplace(this);
 	 }
+
+	 FTimerHandle Handle;
+	 GetWorld()->GetTimerManager().SetTimer(Handle, this, &AFactorySourceActor::CreateWidget, 1.0f, false);
+
 }
 
 void AFactorySourceActor::ResourceHighLightOn()
@@ -40,6 +44,15 @@ void AFactorySourceActor::ResourceHighLightOff()
 	if (IsValid(FactorySource))
 	{
 		FactorySource->SetRenderCustomDepth(false);
+	}
+}
+
+void AFactorySourceActor::CreateWidget()
+{
+	AFactoryPlayerController* PC = Cast<AFactoryPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
+	if (IsValid(PC))
+	{
+		PC->CreateTreeItem(0, 0, this);
 	}
 }
 

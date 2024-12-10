@@ -26,4 +26,6 @@ public:
 	TArray<UItemWidget*> Children;
 
 	FString ItemText;
+
+	AActor* Actor;
 };

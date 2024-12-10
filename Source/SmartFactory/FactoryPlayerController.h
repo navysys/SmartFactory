@@ -43,5 +43,8 @@ public:
 
 	void Rotation(const FInputActionValue& Value);
 
-	void CreateTreeView(int Index, int ChildIndex);
+	void CreateTreeItem(int Index, int ChildIndex, AActor* OwningActor);
+
+	int Index1= 0;
+	int Index2;
 };

@@ -35,6 +35,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void ResourceHighLightOff();
 
+	UFUNCTION()
+	void CreateWidget();
 
 public:	
 	// Called every frame
@@ -47,4 +49,6 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	ESelectionTree Tree;
+
+	
 };

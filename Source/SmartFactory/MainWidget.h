@@ -32,7 +32,7 @@ public:
 	UFUNCTION()
 	void AlarmButtonClicked();
 
-	void CreateEntryWidget(int Index, int ChildIndex);
+	void CreateTreeItem(int Index, int ChildIndex, AActor* OwningActor = nullptr);
 	void GetChildrenForItem(UObject* InItem, TArray<UObject*>& OutChildren);
 	void AddChildToItem(UItemWidget* ParentItem, UItemWidget* NewChildItem);
 	void OnTreeViewItemClicked(UObject* ClickedItem);
@@ -57,4 +57,8 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<class UPopupModuleWidget> PopupWidget;
+
+	//UPROPERTY(EditAnywhere)
+	//TArray<UItemWidget*> RootItems;
+	TArray<UItemWidget*> Items;
 };

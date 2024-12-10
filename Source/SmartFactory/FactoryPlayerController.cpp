@@ -45,6 +45,7 @@ void AFactoryPlayerController::SetupInputComponent()
 	}
 }
 
+
 void AFactoryPlayerController::Move(const FInputActionValue& Value)
 {
 	if (Value.Get<bool>())
@@ -60,7 +61,10 @@ void AFactoryPlayerController::Rotation(const FInputActionValue& Value)
 	AddYawInput(YawInput);
 }
 
-void AFactoryPlayerController::CreateTreeView(int Index, int ChildIndex)
+void AFactoryPlayerController::CreateTreeItem(int Index, int ChildIndex, AActor* OwningActor)
 {
-	MainWidget->CreateEntryWidget(Index, ChildIndex);
+	if (IsValid(MainWidget))
+	{
+		MainWidget->CreateTreeItem(Index, ChildIndex, OwningActor);
+	}
 }
