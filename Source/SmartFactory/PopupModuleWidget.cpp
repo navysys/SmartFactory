@@ -5,6 +5,8 @@
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
 #include "Kismet/KismetSystemLibrary.h"
+#include "FactorySourceActor.h"
+#include "Kismet/GameplayStatics.h"
 
 void UPopupModuleWidget::NativeOnInitialized()
 {
@@ -28,7 +30,14 @@ void UPopupModuleWidget::QuitProgram()
 
 void UPopupModuleWidget::CancelButtonCallBack()
 {
-	RemoveFromParent();
+	UWorld* World = GetWorld();
+
+	AFactorySourceActor* TargetActor = Cast<AFactorySourceActor>(UGameplayStatics::GetActorOfClass(World, AFactorySourceActor::StaticClass()));
+	if (TargetActor)
+	{
+		TargetActor->ResourceHighLightOn();
+	}
+	//RemoveFromParent();
 }
 
 void UPopupModuleWidget::SetPopupTitleText(const FText& NewText)

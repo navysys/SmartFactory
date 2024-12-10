@@ -2,9 +2,11 @@
 
 #pragma once
 
+#include "GameFramework/Actor.h"
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "PopupModuleWidget.generated.h"
+
 
 class UButton;
 class UTextBlock;
