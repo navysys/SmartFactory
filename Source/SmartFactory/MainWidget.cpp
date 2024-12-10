@@ -43,12 +43,17 @@ void UMainWidget::NativeConstruct()
 	UItemWidget* ChildItem2 = NewObject<UItemWidget>();
 	ChildItem2->ItemText = TEXT("Child 2");
 
-	RootItem->Children.Add(ChildItem1);
-	RootItem->Children.Add(ChildItem2);
+	/*RootItem->Children.Add(ChildItem1);
+	RootItem->Children.Add(ChildItem2);*/
+
+	AddChildToItem(RootItem, ChildItem1);
+	AddChildToItem(RootItem, ChildItem2);
 
 	// Tree View에 루트 항목 설정
 	TArray<UItemWidget*> Items = {RootItem};
 	TreeView->SetListItems( Items);
+
+	TreeView->OnItemClicked().AddUObject(this, &UMainWidget::OnTreeViewItemClicked);
 }
 
 void UMainWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
@@ -120,5 +125,14 @@ void UMainWidget::AddChildToItem(UItemWidget* ParentItem, UItemWidget* NewChildI
 		// Tree View 갱신
 		TreeView->SetItemExpansion(ParentItem, true); // 부모 노드를 확장
 		TreeView->RequestRefresh();
+	}
+}
+
+void UMainWidget::OnTreeViewItemClicked(UObject* ClickedItem)
+{
+	if (UItemWidget* TreeItem = Cast<UItemWidget>(ClickedItem))
+	{
+		// 항목 클릭 시 실행할 동작
+		UE_LOG(LogTemp, Log, TEXT("Clicked Item: %s"), *TreeItem->ItemText);
 	}
 }

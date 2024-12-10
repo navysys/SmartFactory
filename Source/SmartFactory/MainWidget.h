@@ -35,6 +35,7 @@ public:
 	void CreateEntryWidget(int Index, int ChildIndex);
 	void GetChildrenForItem(UObject* InItem, TArray<UObject*>& OutChildren);
 	void AddChildToItem(UItemWidget* ParentItem, UItemWidget* NewChildItem);
+	void OnTreeViewItemClicked(UObject* ClickedItem);
 
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UButton> SettingButton;
