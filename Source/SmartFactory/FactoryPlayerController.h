@@ -36,7 +36,11 @@ public:
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UInputAction> IA_Rotation;
 
+	UPROPERTY(EditAnywhere)
+	TArray<class AFactorySourceActor*> FactorySource;
+
 	void Move(const FInputActionValue& Value);
+
 	void Rotation(const FInputActionValue& Value);
 
 	void CreateTreeView(int Index, int ChildIndex);

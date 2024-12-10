@@ -3,6 +3,8 @@
 
 #include "FactorySourceActor.h"
 #include "Components/StaticMeshComponent.h"
+#include "FactoryPlayerController.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 AFactorySourceActor::AFactorySourceActor()
@@ -18,6 +20,11 @@ void AFactorySourceActor::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	 AFactoryPlayerController* PC = Cast<AFactoryPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
+	 if (IsValid(PC))
+	 {
+		 PC->FactorySource.Emplace(this);
+	 }
 }
 
 void AFactorySourceActor::ResourceHighLightOn()
