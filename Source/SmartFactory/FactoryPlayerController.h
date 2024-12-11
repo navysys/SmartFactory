@@ -4,13 +4,60 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
+#include "HttpModule.h"
+#include "Interfaces/IHttpRequest.h"
+#include "Interfaces/IHttpResponse.h"
 #include "InputActionValue.h"
 #include "FactoryPlayerController.generated.h"
+
 
 
 class UMainWidget;
 class UInputMappingContext;
 class UInputAction;
+
+
+USTRUCT(BlueprintType)
+struct FSLITTERChildDataStruct
+{
+	GENERATED_USTRUCT_BODY()
+
+public:
+	UPROPERTY(BlueprintReadWrite)
+	FString node_id = "";
+
+	UPROPERTY(BlueprintReadWrite)
+	FString parent_id = "";
+
+	UPROPERTY(BlueprintReadWrite)
+	FString node_name = "";
+
+	UPROPERTY(BlueprintReadWrite)
+	int type = 0;
+};
+
+
+USTRUCT(BlueprintType)
+struct FSLITTERMainDataStruct
+{
+	GENERATED_USTRUCT_BODY()
+
+public:
+	UPROPERTY(BlueprintReadWrite)
+	FString node_id = "";
+
+	UPROPERTY(BlueprintReadWrite)
+	FString parent_id = "";
+
+	UPROPERTY(BlueprintReadWrite)
+	FString node_name = "";
+
+	UPROPERTY(BlueprintReadWrite)
+	int type = 0;
+
+	UPROPERTY(BlueprintReadWrite)
+	FSLITTERChildDataStruct child;
+};
 
 UCLASS()
 class SMARTFACTORY_API AFactoryPlayerController : public APlayerController
@@ -47,4 +94,11 @@ public:
 
 	int Index1= 0;
 	int Index2;
+
+public:
+	void SendHttpRequest();
+
+	void GetDataCallBack(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
+
+	
 };
