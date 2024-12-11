@@ -35,6 +35,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void ResourceHighLightOff();
 
+	UFUNCTION(BlueprintCallable)
+	void ResourceHighLightOnOff(bool HighLightState);
+
 	UFUNCTION()
 	void CreateWidget();
 
@@ -51,4 +54,5 @@ public:
 	ESelectionTree Tree;
 
 	
+
 };
