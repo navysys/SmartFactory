@@ -44,6 +44,9 @@ public:
 
 
 public:
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<USceneComponent> Root;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UStaticMeshComponent* FactorySource;
 
