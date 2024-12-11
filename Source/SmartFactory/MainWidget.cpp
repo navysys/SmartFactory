@@ -100,8 +100,12 @@ void UMainWidget::AlarmButtonClicked()
 {
 }
 
-void UMainWidget::CreateTreeItem(int Index, int ChildIndex, AActor* OwningActor)
+void UMainWidget::CreateTreeItem(FString NodeID, FString ParentID, AActor* OwningActor)
 {
+	if (ParentID == "null")
+	{
+
+	}
 	UItemWidget* RootItem = NewObject<UItemWidget>();
 	RootItem->ItemText = TEXT("Root");
 	RootItem->Actor = OwningActor;

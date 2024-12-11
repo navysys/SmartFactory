@@ -14,7 +14,11 @@ AFactorySourceActor::AFactorySourceActor()
 
 	bool IsClicked = false;
 
-	FactorySource = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("FactorySource"));
+	MeshComp = CreateDefaultSubobject<UMeshComponent>(TEXT("FactorySource"));
+
+	CameraPosition = CreateDefaultSubobject<USceneComponent>(TEXT("CameraPosition"));
+
+
 }
 
 // Called when the game starts or when spawned
@@ -28,38 +32,23 @@ void AFactorySourceActor::BeginPlay()
 		 PC->FactorySource.Emplace(this);
 	 }
 
-	 FTimerHandle Handle;
-	 GetWorld()->GetTimerManager().SetTimer(Handle, this, &AFactorySourceActor::CreateWidget, 1.0f, false);
+	 //FTimerHandle Handle;
+	 //GetWorld()->GetTimerManager().SetTimer(Handle, this, &AFactorySourceActor::CreateWidget, 1.0f, false);
 
 }
 
-void AFactorySourceActor::ResourceHighLightOn()
-{
-	if (IsValid(FactorySource))
-	{
-		FactorySource->SetRenderCustomDepth(true);
-	}
-}
-
-void AFactorySourceActor::ResourceHighLightOff()
-{
-	if (IsValid(FactorySource))
-	{
-		FactorySource->SetRenderCustomDepth(false);
-	}
-}
 
 void AFactorySourceActor::ResourceHighLightOnOff(bool HighLightState)
 {
-	if (IsValid(FactorySource))
+	if (IsValid(MeshComp))
 	{
 		if (HighLightState == true)
 		{
-			FactorySource->SetRenderCustomDepth(false);
+			MeshComp->SetRenderCustomDepth(false);
 		}
 		else if (HighLightState == false)
 		{
-			FactorySource->SetRenderCustomDepth(true);
+			MeshComp->SetRenderCustomDepth(true);
 		}
 	}
 }
@@ -69,7 +58,7 @@ void AFactorySourceActor::CreateWidget()
 	AFactoryPlayerController* PC = Cast<AFactoryPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
 	if (IsValid(PC))
 	{
-		PC->CreateTreeItem(0, 0, this);
+		PC->CreateTreeItem("Test", "Test", this);
 	}
 }
 

@@ -42,8 +42,8 @@ public:
 	void Move(const FInputActionValue& Value);
 
 	void Rotation(const FInputActionValue& Value);
-
-	void CreateTreeItem(int Index, int ChildIndex, AActor* OwningActor);
+	
+	void CreateTreeItem(FString NodeID, FString ParentID, AActor* OwningActor);
 
 	int Index1= 0;
 	int Index2;

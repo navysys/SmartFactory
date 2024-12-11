@@ -61,10 +61,10 @@ void AFactoryPlayerController::Rotation(const FInputActionValue& Value)
 	AddYawInput(YawInput);
 }
 
-void AFactoryPlayerController::CreateTreeItem(int Index, int ChildIndex, AActor* OwningActor)
+void AFactoryPlayerController::CreateTreeItem(FString NodeID, FString ParentID, AActor* OwningActor)
 {
 	if (IsValid(MainWidget))
 	{
-		MainWidget->CreateTreeItem(Index, ChildIndex, OwningActor);
+		MainWidget->CreateTreeItem(NodeID, ParentID, OwningActor);
 	}
 }

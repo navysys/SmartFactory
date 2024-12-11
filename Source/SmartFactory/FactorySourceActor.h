@@ -8,13 +8,6 @@
 
 class UStaticMeshComponent;
 
-UENUM(BlueprintType)
-enum class ESelectionTree : uint8
-{
-	Tree0 UMETA(DisplayName = "Tree0"),
-	Tree1 UMETA(DisplayName = "Tree1"),
-	Tree2 UMETA(DisplayName = "Tree2")
-};
 
 UCLASS()
 class SMARTFACTORY_API AFactorySourceActor : public AActor
@@ -30,13 +23,7 @@ public:
 	virtual void BeginPlay() override;
 
 	UFUNCTION(BlueprintCallable)
-	void ResourceHighLightOn();
-
-	UFUNCTION(BlueprintCallable)
-	void ResourceHighLightOff();
-
-	UFUNCTION(BlueprintCallable)
-	void ResourceHighLightOnOff(bool HighLightState);
+	virtual void ResourceHighLightOnOff(bool HighLightState);
 
 	UFUNCTION()
 	void CreateWidget();
@@ -48,14 +35,9 @@ public:
 
 public:
 	UPROPERTY(EditAnywhere)
-	TObjectPtr<USceneComponent> Root;
+	TObjectPtr<UMeshComponent> MeshComp;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UStaticMeshComponent* FactorySource;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	ESelectionTree Tree;
-
-	
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<USceneComponent> CameraPosition;
 
 };

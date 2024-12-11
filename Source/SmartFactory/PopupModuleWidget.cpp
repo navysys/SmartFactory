@@ -30,14 +30,7 @@ void UPopupModuleWidget::QuitProgram()
 
 void UPopupModuleWidget::CancelButtonCallBack()
 {
-	UWorld* World = GetWorld();
-
-	AFactorySourceActor* TargetActor = Cast<AFactorySourceActor>(UGameplayStatics::GetActorOfClass(World, AFactorySourceActor::StaticClass()));
-	if (TargetActor)
-	{
-		TargetActor->ResourceHighLightOn();
-	}
-	//RemoveFromParent();
+	RemoveFromParent();
 }
 
 void UPopupModuleWidget::SetPopupTitleText(const FText& NewText)
