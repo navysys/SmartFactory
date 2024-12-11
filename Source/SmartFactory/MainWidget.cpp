@@ -7,6 +7,8 @@
 #include "PopupModuleWidget.h"
 #include "ItemWidget.h"
 #include "Components/TreeView.h"
+#include "FactorySourceActor.h"
+#include <Kismet/GameplayStatics.h>
 
 
 void UMainWidget::NativeConstruct()
@@ -149,9 +151,21 @@ void UMainWidget::AddChildToItem(UItemWidget* ParentItem, UItemWidget* NewChildI
 
 void UMainWidget::OnTreeViewItemClicked(UObject* ClickedItem)
 {
+	
+	//AFactorySourceActor* SourceActor = Cast<AFactorySourceActor>(
+	//	UGameplayStatics::GetActorOfClass(GetWorld(), AFactorySourceActor::StaticClass()));
+
 	if (UItemWidget* TreeItem = Cast<UItemWidget>(ClickedItem))
 	{
 		// 항목 클릭 시 실행할 동작
 		GetOwningPlayer()->GetPawn()->SetActorLocation(TreeItem->Actor->GetActorLocation());
+		
+		AFactorySourceActor* SourceActor = Cast<AFactorySourceActor>(TreeItem->Actor);
+
+		if (IsValid(SourceActor))
+		{
+			SourceActor->ResourceHighLightOnOff(HighLightState);
+			HighLightState = !HighLightState;
+		}
 	}
 }

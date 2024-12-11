@@ -12,6 +12,8 @@ AFactorySourceActor::AFactorySourceActor()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	bool IsClicked = false;
+
 	FactorySource = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("FactorySource"));
 }
 
@@ -44,6 +46,21 @@ void AFactorySourceActor::ResourceHighLightOff()
 	if (IsValid(FactorySource))
 	{
 		FactorySource->SetRenderCustomDepth(false);
+	}
+}
+
+void AFactorySourceActor::ResourceHighLightOnOff(bool HighLightState)
+{
+	if (IsValid(FactorySource))
+	{
+		if (HighLightState == true)
+		{
+			FactorySource->SetRenderCustomDepth(false);
+		}
+		else if (HighLightState == false)
+		{
+			FactorySource->SetRenderCustomDepth(true);
+		}
 	}
 }
 
