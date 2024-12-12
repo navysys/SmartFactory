@@ -16,7 +16,7 @@ class UMainWidget;
 class UInputMappingContext;
 class UInputAction;
 
-
+//SLITTER
 USTRUCT(BlueprintType)
 struct FSLITTERChildDataStruct
 {
@@ -35,7 +35,6 @@ public:
 	UPROPERTY(BlueprintReadWrite)
 	int type = 0;
 };
-
 
 USTRUCT(BlueprintType)
 struct FSLITTERMainDataStruct
@@ -57,6 +56,117 @@ public:
 
 	UPROPERTY(BlueprintReadWrite)
 	FSLITTERChildDataStruct child;
+};
+
+//VCM
+USTRUCT(BlueprintType)
+struct FVCMChildDataStruct
+{
+	GENERATED_USTRUCT_BODY()
+
+public:
+	UPROPERTY(BlueprintReadWrite)
+	FString VCMNodeId = "";
+
+	UPROPERTY(BlueprintReadWrite)
+	FString VCMParentId = "";
+
+	UPROPERTY(BlueprintReadWrite)
+	FString VCMNodeName = "";
+
+	UPROPERTY(BlueprintReadWrite)
+	int VCMType = 0;
+};
+
+USTRUCT(BlueprintType)
+struct FVCMMainDataStruct
+{
+	GENERATED_USTRUCT_BODY()
+
+public:
+	UPROPERTY(BlueprintReadWrite)
+	FString VCMNodeId = "";
+
+	UPROPERTY(BlueprintReadWrite)
+	FString VCMParentId = "";
+
+	UPROPERTY(BlueprintReadWrite)
+	FString VCMNodeName = "";
+
+	UPROPERTY(BlueprintReadWrite)
+	int VCMType = 0;
+
+	UPROPERTY(BlueprintReadWrite)
+	FVCMChildDataStruct VCMchild;
+};
+
+//실시간 데이터
+USTRUCT(BlueprintType)
+struct FRealTimeVCMMainDataStruct
+{
+	GENERATED_USTRUCT_BODY()
+
+public:
+	UPROPERTY(BlueprintReadWrite)
+	FString ItemId = "";
+
+	UPROPERTY(BlueprintReadWrite)
+	FString DataName = "";
+
+	UPROPERTY(BlueprintReadWrite)
+	FString VCID = "";
+
+	UPROPERTY(BlueprintReadWrite)
+	FString VCName = "";
+
+	UPROPERTY(BlueprintReadWrite)
+	int DataValue = 0;
+};
+
+//전체 알람
+USTRUCT(BlueprintType)
+struct FAllAlarmMainDataStruct
+{
+	GENERATED_USTRUCT_BODY()
+
+public:
+	UPROPERTY(BlueprintReadWrite)
+	int AlarmNo = 0;
+
+	UPROPERTY(BlueprintReadWrite)
+	FString MCName = "";
+
+	UPROPERTY(BlueprintReadWrite)
+	FString Contents = "";
+
+	UPROPERTY(BlueprintReadWrite)
+	double ThresholdMax = 0;
+
+	UPROPERTY(BlueprintReadWrite)
+	int ThresholdMin = 0;
+};
+
+//개별 알람
+USTRUCT(BlueprintType)
+struct FEachAlarmMainDataStruct
+{
+	GENERATED_USTRUCT_BODY()
+
+public:
+	UPROPERTY(BlueprintReadWrite)
+	int AlarmNo = 0;
+
+	UPROPERTY(BlueprintReadWrite)
+	FString MCName = "";
+
+	UPROPERTY(BlueprintReadWrite)
+	FString Contents = "";
+
+	UPROPERTY(BlueprintReadWrite)
+	double ThresholdMax = 0;
+
+	UPROPERTY(BlueprintReadWrite)
+	int ThresholdMin = 0;
 };
 
 UCLASS()
@@ -96,9 +206,28 @@ public:
 	int Index2;
 
 public:
-	void SendHttpRequest();
+	//설비 SLITTER
+	void SendSLITTERHttpRequest();
 
-	void GetDataCallBack(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
+	void GetSLITTERDataCallBack(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
 
-	
+	//설비 VCM
+	void SendVCMHttpRequest();
+
+	void GetVCMDataCallBack(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
+
+	//실시간 데이터 
+	void SendVCMMainHttpRequest();
+
+	void GetVCMMainDataCallBack(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
+
+	//전체 알람
+	void SendAllAlarmHttpRequest();
+
+	void GetAllAlarmDataCallBack(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
+
+	//개별 알람
+	void SendEachAlarmHttpRequest();
+
+	void GetEachAlarmDataCallBack(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
 };
