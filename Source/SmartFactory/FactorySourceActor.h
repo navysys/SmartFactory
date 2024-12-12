@@ -25,9 +25,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	virtual void ResourceHighLightOnOff(bool HighLightState);
 
-	UFUNCTION()
-	void CreateWidget();
-
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

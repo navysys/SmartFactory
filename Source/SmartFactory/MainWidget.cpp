@@ -100,7 +100,7 @@ void UMainWidget::AlarmButtonClicked()
 {
 }
 
-void UMainWidget::CreateTreeItem(FString NodeID, FString ParentID, AActor* OwningActor)
+void UMainWidget::CreateTreeItem(FString NodeID, FString ParentID)
 {
 	if (ParentID == "null")
 	{
@@ -108,7 +108,6 @@ void UMainWidget::CreateTreeItem(FString NodeID, FString ParentID, AActor* Ownin
 	}
 	UItemWidget* RootItem = NewObject<UItemWidget>();
 	RootItem->ItemText = TEXT("Root");
-	RootItem->Actor = OwningActor;
 
 	Items.Add(RootItem);
 	TreeView->SetListItems(Items);

@@ -32,7 +32,7 @@ public:
 	UFUNCTION()
 	void AlarmButtonClicked();
 
-	void CreateTreeItem(FString NodeID, FString ParentID, AActor* OwningActor = nullptr);
+	void CreateTreeItem(FString NodeID, FString ParentID);
 	void GetChildrenForItem(UObject* InItem, TArray<UObject*>& OutChildren);
 	void AddChildToItem(UItemWidget* ParentItem, UItemWidget* NewChildItem);
 	void OnTreeViewItemClicked(UObject* ClickedItem);

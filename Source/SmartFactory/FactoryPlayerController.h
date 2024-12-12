@@ -90,7 +90,7 @@ public:
 
 	void Rotation(const FInputActionValue& Value);
 	
-	void CreateTreeItem(FString NodeID, FString ParentID, AActor* OwningActor);
+	void CreateTreeItem(FString NodeID, FString ParentID);
 
 	int Index1= 0;
 	int Index2;
