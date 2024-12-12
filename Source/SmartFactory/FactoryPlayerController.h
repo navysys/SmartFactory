@@ -102,7 +102,7 @@ public:
 
 //실시간 데이터
 USTRUCT(BlueprintType)
-struct FRealTimeVCMMainDataStruct
+struct FRealTimeVCMChildDataStruct
 {
 	GENERATED_USTRUCT_BODY()
 
@@ -123,9 +123,23 @@ public:
 	int DataValue = 0;
 };
 
+USTRUCT(BlueprintType)
+struct FRealTimeVCMMainDataStruct
+{
+	GENERATED_USTRUCT_BODY()
+
+public:
+	UPROPERTY(BlueprintReadWrite)
+	FString MachineId = "";
+
+	UPROPERTY(BlueprintReadWrite)
+	FRealTimeVCMChildDataStruct Data;
+};
+
+
 //전체 알람
 USTRUCT(BlueprintType)
-struct FAllAlarmMainDataStruct
+struct FAllAlarmChildDataStruct
 {
 	GENERATED_USTRUCT_BODY()
 
@@ -144,6 +158,22 @@ public:
 
 	UPROPERTY(BlueprintReadWrite)
 	int ThresholdMin = 0;
+};
+
+USTRUCT(BlueprintType)
+struct FAllAlarmMainDataStruct
+{
+	GENERATED_USTRUCT_BODY()
+
+public:
+	UPROPERTY(BlueprintReadWrite)
+	int Result = 0;
+
+	UPROPERTY(BlueprintReadWrite)
+	int ItemCount = 0;
+
+	UPROPERTY(BlueprintReadWrite)
+	FAllAlarmChildDataStruct AllAlarmChild;
 };
 
 //개별 알람

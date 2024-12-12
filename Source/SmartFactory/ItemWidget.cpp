@@ -11,7 +11,7 @@ void UItemWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	ItemName->Text = FText::FromString(ItemText);
+	//ItemName->Text = FText::FromString(ItemText);
 	TArray<AFactorySourceActor*> AllActor;
 	AllActor = Cast<AFactoryPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0))->FactorySource;
 	for (AFactorySourceActor* FindActor : AllActor)
