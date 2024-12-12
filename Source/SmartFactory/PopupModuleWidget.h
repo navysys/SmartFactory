@@ -14,6 +14,7 @@ class UTextBlock;
 /**
  * 
  */
+
 UCLASS()
 class SMARTFACTORY_API UPopupModuleWidget : public UUserWidget
 {
@@ -41,7 +42,6 @@ private:
 
 	UFUNCTION(BlueprintCallable)
 	void CancelButtonCallBack();
-
 
 public:
 	UFUNCTION(BlueprintCallable)
