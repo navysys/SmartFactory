@@ -25,7 +25,7 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "TreeItem")
 	TArray<UItemWidget*> Children;
 
-	FString ItemText;
+	FString NodeID;
 
 	AActor* Actor;
 };

@@ -47,7 +47,6 @@ void AFactorySourceActor::ResourceHighLightOnOff(bool HighLightState)
 	}
 }
 
-
 // Called every frame
 void AFactorySourceActor::Tick(float DeltaTime)
 {

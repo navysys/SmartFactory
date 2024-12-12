@@ -7,25 +7,27 @@
 #include "FactorySourceActor.h"
 #include "FactoryPlayerController.h"
 
+
 void UItemWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
-
-	//ItemName->Text = FText::FromString(ItemText);
-	TArray<AFactorySourceActor*> AllActor;
-	AllActor = Cast<AFactoryPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0))->FactorySource;
-	for (AFactorySourceActor* FindActor : AllActor)
-	{
-		FString ActorName;
-		FindActor->GetName(ActorName);
-		if (ActorName == ItemText)
-		{
-			Actor = FindActor;
-		}
-	}
 }
 
 void UItemWidget::NativeOnListItemObjectSet(UObject* ListItemObject)
 {
-	
+	UItemWidget* Item = Cast<UItemWidget>(ListItemObject);
+	ItemName->SetText(FText::FromString(Item->NodeID));
+
+	TArray<AFactorySourceActor*> AllActor;
+	AllActor = Cast<AFactoryPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0))->FactorySource;
+	for (AFactorySourceActor* FindActor : AllActor)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Find Actor : %s"), *FindActor->GetName());
+		FString ActorName;
+		FindActor->GetName(ActorName);
+		if (ActorName == NodeID)
+		{
+			Actor = FindActor;
+		}
+	}
 }
