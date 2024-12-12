@@ -49,15 +49,6 @@ void AFactorySourceActor::ResourceHighLightOnOff(bool HighLightState)
 	}
 }
 
-void AFactorySourceActor::CreateWidget()
-{
-	AFactoryPlayerController* PC = Cast<AFactoryPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
-	if (IsValid(PC))
-	{
-		PC->CreateTreeItem("Test", "Test");
-	}
-}
-
 // Called every frame
 void AFactorySourceActor::Tick(float DeltaTime)
 {
