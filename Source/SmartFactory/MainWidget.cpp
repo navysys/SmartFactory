@@ -8,6 +8,7 @@
 #include "ItemWidget.h"
 #include "Components/TreeView.h"
 #include "FactorySourceActor.h"
+#include "Components/TextBlock.h"
 #include <Kismet/GameplayStatics.h>
 
 
@@ -37,6 +38,7 @@ void UMainWidget::NativeConstruct()
 	{
 		TreeView->SetOnGetItemChildren(this, &UMainWidget::GetChildrenForItem);
 		TreeView->OnItemClicked().AddUObject(this, &UMainWidget::OnTreeViewItemClicked);
+		//TreeView->
 	}
 	
 
@@ -102,30 +104,28 @@ void UMainWidget::AlarmButtonClicked()
 
 void UMainWidget::CreateTreeItem(FString NodeID, FString ParentID)
 {
-	if (ParentID == "null")
+	//UE_LOG(LogTemp, Warning, TEXT("ParentID = %S , NodeID = %s"), *ParentID, *NodeID);
+	if (ParentID == "")
 	{
+		UItemWidget* RootItem = NewObject<UItemWidget>();
+		RootItem->NodeID = NodeID;
 
+		Items.Add(RootItem);
 	}
-	UItemWidget* RootItem = NewObject<UItemWidget>();
-	RootItem->ItemText = TEXT("Root");
+	else
+	{
+		UItemWidget* ChildItem = CreateWidget<UItemWidget>(this, UItemWidget::StaticClass());
+		ChildItem->NodeID = NodeID;
 
-	Items.Add(RootItem);
+		for (UItemWidget* ParentItem : Items)
+		{
+			if (ParentItem->NodeID == ParentID)
+			{
+				AddChildToItem(ParentItem, ChildItem);
+			}
+		}
+	}
 	TreeView->SetListItems(Items);
-
-	//else
-	//{
-	//	UItemWidget* ChildItem = NewObject<UItemWidget>();
-	//	ChildItem->ItemText = TEXT("Child");
-
-	//	UItemWidget* RootItem = *RootItems.Find(Index);
-	//	if (!IsValid(RootItem))
-	//	{
-	//		RootItem = NewObject<UItemWidget>();
-	//		RootItem->ItemText = TEXT("Root");
-	//		RootItems.Add(Index, RootItem);
-	//	}
-	//	AddChildToItem(RootItem, ChildItem);
-	//}
 }
 
 void UMainWidget::GetChildrenForItem(UObject* InItem, TArray<UObject*>& OutChildren)
@@ -160,15 +160,18 @@ void UMainWidget::OnTreeViewItemClicked(UObject* ClickedItem)
 
 	if (UItemWidget* TreeItem = Cast<UItemWidget>(ClickedItem))
 	{
-		// 항목 클릭 시 실행할 동작
-		GetOwningPlayer()->GetPawn()->SetActorLocation(TreeItem->Actor->GetActorLocation());
-		
 		AFactorySourceActor* SourceActor = Cast<AFactorySourceActor>(TreeItem->Actor);
-
+		// 항목 클릭 시 실행할 동작
 		if (IsValid(SourceActor))
 		{
-			SourceActor->ResourceHighLightOnOff(HighLightState);
-			HighLightState = !HighLightState;
+			GetOwningPlayer()->GetPawn()->SetActorLocation(TreeItem->Actor->GetActorLocation());
+
+			if (IsValid(SourceActor))
+			{
+				SourceActor->ResourceHighLightOnOff(HighLightState);
+				HighLightState = !HighLightState;
+			}
 		}
+
 	}
 }

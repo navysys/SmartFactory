@@ -139,6 +139,8 @@ void AFactoryPlayerController::GetSLITTERDataCallBack(FHttpRequestPtr Request, F
 
 		TArray<TSharedPtr<FJsonValue>> ChildArray = Child.Get()->AsArray();
 
+		CreateTreeItem(NodeIdResult, ParentIdResult);
+
 		FString ChildNodeId;
 		FString ChildParentId;
 		FString ChildNodeNameId;
@@ -151,7 +153,9 @@ void AFactoryPlayerController::GetSLITTERDataCallBack(FHttpRequestPtr Request, F
 			ChildData.Get()->AsObject()->TryGetStringField(TEXT("node_name"), ChildNodeNameId);
 			ChildData.Get()->AsObject()->TryGetNumberField(TEXT("type"), ChildType);
 
-			UE_LOG(LogTemp, Warning, TEXT("ChildNode : %s,  ChildParentId : %s, ChildNodeNameId : %s, ChildType : %d,"), *ChildNodeId, *ChildParentId, *ChildNodeNameId, ChildType);
+			//UE_LOG(LogTemp, Warning, TEXT("ChildNode : %s,  ChildParentId : %s, ChildNodeNameId : %s, ChildType : %d,"), *ChildNodeId, *ChildParentId, *ChildNodeNameId, ChildType);
+
+			CreateTreeItem(ChildNodeId, ChildParentId);
 		}
 	}
 		// 파싱 데이터 사용 (해당 함수에서는 델리게이트 사용, 다른 방식으로 사용 가능)
@@ -228,7 +232,7 @@ void AFactoryPlayerController::GetVCMDataCallBack(FHttpRequestPtr Request, FHttp
 			VCMChildData.Get()->AsObject()->TryGetStringField(TEXT("node_name"), VCMChildNodeNameId);
 			VCMChildData.Get()->AsObject()->TryGetNumberField(TEXT("type"), VCMChildType);
 
-			UE_LOG(LogTemp, Warning, TEXT("VCMChildNode : %s,  VCMChildParentId : %s, VCMChildNodeNameId : %s, VCMChildType : %d,"), *VCMChildNodeId, *VCMChildParentId, *VCMChildNodeNameId, VCMChildType);
+			//UE_LOG(LogTemp, Warning, TEXT("VCMChildNode : %s,  VCMChildParentId : %s, VCMChildNodeNameId : %s, VCMChildType : %d,"), *VCMChildNodeId, *VCMChildParentId, *VCMChildNodeNameId, VCMChildType);
 		}
 	}
 	// 파싱 데이터 사용 (해당 함수에서는 델리게이트 사용, 다른 방식으로 사용 가능)
@@ -299,7 +303,7 @@ void AFactoryPlayerController::GetVCMMainDataCallBack(FHttpRequestPtr Request, F
 		VCMMainChild.Get()->AsObject()->TryGetStringField(TEXT("vcName"), VCNameResult);
 		VCMMainChild.Get()->AsObject()->TryGetNumberField(TEXT("dataValue"), DataValueResult);
 
-		UE_LOG(LogTemp, Warning, TEXT("ItemId : %s,  DataName : %s, VCID : %s, VCName : %s, DataValue : %d"), *ItemIdResult, *DataNameResult, *VCIDResult, *VCNameResult, DataValueResult);
+		//UE_LOG(LogTemp, Warning, TEXT("ItemId : %s,  DataName : %s, VCID : %s, VCName : %s, DataValue : %d"), *ItemIdResult, *DataNameResult, *VCIDResult, *VCNameResult, DataValueResult);
 	}
 	// 파싱 데이터 사용 (해당 함수에서는 델리게이트 사용, 다른 방식으로 사용 가능)
 	//OnGetFruits.Broadcast(CallbackStruct);
@@ -371,7 +375,7 @@ void AFactoryPlayerController::GetAllAlarmDataCallBack(FHttpRequestPtr Request, 
 		RootData.Get()->AsObject()->TryGetNumberField(TEXT("thresholdMax"), ThresholdMaxResult);
 		RootData.Get()->AsObject()->TryGetNumberField(TEXT("thresholdMin"), ThresholdMinResult);
 
-		UE_LOG(LogTemp, Warning, TEXT("AllAlarmAlarmNo : %d,  AllAlarmMCName : %s, AllAlarmContents : %s, AllAlarmThresholdMax : %f, AllAlarmThresholdMin : %d"), AlarmNoResult, *MCNameResult, *ContentsResult, ThresholdMaxResult, ThresholdMinResult);
+		//UE_LOG(LogTemp, Warning, TEXT("AllAlarmAlarmNo : %d,  AllAlarmMCName : %s, AllAlarmContents : %s, AllAlarmThresholdMax : %f, AllAlarmThresholdMin : %d"), AlarmNoResult, *MCNameResult, *ContentsResult, ThresholdMaxResult, ThresholdMinResult);
 	}
 	// 파싱 데이터 사용 (해당 함수에서는 델리게이트 사용, 다른 방식으로 사용 가능)
 	//OnGetFruits.Broadcast(CallbackStruct);
