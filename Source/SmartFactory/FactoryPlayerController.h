@@ -136,7 +136,6 @@ public:
 	FRealTimeVCMChildDataStruct Data;
 };
 
-
 //전체 알람
 USTRUCT(BlueprintType)
 struct FAllAlarmChildDataStruct

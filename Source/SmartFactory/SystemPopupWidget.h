@@ -4,11 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-
 #include "SystemPopupWidget.generated.h"
 
 class UButton;
 class UTextBlock;
+class UGridPanel;
 /**
  * 
  */
@@ -17,19 +17,15 @@ class SMARTFACTORY_API USystemPopupWidget : public UUserWidget
 {
 	GENERATED_BODY()
 
-protected:
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
-	UButton* TestButton;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
-	UTextBlock* TestTextBlock;
 
 protected:
 	virtual void NativeOnInitialized();
 
-private:
-	UFUNCTION(BlueprintCallable)
-	void TestButtonCallback();
+public:
+	UPROPERTY(meta = (BindWidget))
+	UGridPanel*  AlarmTableGird;
 
-	
+	void AddRow(int32 RowIndex, const TArray<FString>& RowData);
+
+
 };
