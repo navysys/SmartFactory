@@ -10,6 +10,7 @@
 #include "FactorySourceActor.h"
 #include "Components/TextBlock.h"
 #include <Kismet/GameplayStatics.h>
+#include "FactoryPlayerController.h"
 
 
 void UMainWidget::NativeConstruct()
@@ -155,8 +156,7 @@ void UMainWidget::AddChildToItem(UItemWidget* ParentItem, UItemWidget* NewChildI
 void UMainWidget::OnTreeViewItemClicked(UObject* ClickedItem)
 {
 	
-	//AFactorySourceActor* SourceActor = Cast<AFactorySourceActor>(
-	//	UGameplayStatics::GetActorOfClass(GetWorld(), AFactorySourceActor::StaticClass()));
+	
 
 	if (UItemWidget* TreeItem = Cast<UItemWidget>(ClickedItem))
 	{
@@ -164,14 +164,17 @@ void UMainWidget::OnTreeViewItemClicked(UObject* ClickedItem)
 		// 항목 클릭 시 실행할 동작
 		if (IsValid(SourceActor))
 		{
-			GetOwningPlayer()->GetPawn()->SetActorLocation(TreeItem->Actor->GetActorLocation());
+			GetOwningPlayer()->GetPawn()->SetActorLocation(SourceActor->CameraPosition->GetComponentLocation());
 
 			if (IsValid(SourceActor))
 			{
-				SourceActor->ResourceHighLightOnOff(HighLightState);
-				HighLightState = !HighLightState;
+				TArray<AFactorySourceActor*> Source = Cast<AFactoryPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0))->FactorySource;
+				for (AFactorySourceActor* FActor : Source)
+				{
+					FActor->ResourceHighLightOnOff(true);
+				}
+				SourceActor->ResourceHighLightOnOff(false);
 			}
 		}
-
 	}
 }

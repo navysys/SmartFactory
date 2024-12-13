@@ -36,5 +36,4 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<USceneComponent> CameraPosition;
-
 };
