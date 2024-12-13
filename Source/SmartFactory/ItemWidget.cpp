@@ -20,14 +20,14 @@ void UItemWidget::NativeOnListItemObjectSet(UObject* ListItemObject)
 
 	TArray<AFactorySourceActor*> AllActor;
 	AllActor = Cast<AFactoryPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0))->FactorySource;
+
 	for (AFactorySourceActor* FindActor : AllActor)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Find Actor : %s"), *FindActor->GetName());
-		FString ActorName;
-		FindActor->GetName(ActorName);
-		if (ActorName == NodeID)
+		FString ActorName = FindActor->GetActorLabel();
+		if (ActorName == Item->NodeID)
 		{
-			Actor = FindActor;
+			UE_LOG(LogTemp, Warning, TEXT("Find Actor"));
+			Item->Actor = FindActor;
 		}
 	}
 }

@@ -61,6 +61,4 @@ public:
 	//UPROPERTY(EditAnywhere)
 	//TArray<UItemWidget*> RootItems;
 	TArray<UItemWidget*> Items;
-
-	bool HighLightState = false;
 };
