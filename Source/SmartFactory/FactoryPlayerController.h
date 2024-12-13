@@ -214,6 +214,9 @@ public:
 	TSubclassOf<UUserWidget> MainWidgetClass;
 
 	UPROPERTY(EditAnywhere)
+	TSubclassOf<class USystemPopupWidget> SystemPopupWidget;
+
+	UPROPERTY(EditAnywhere)
 	TObjectPtr<UInputMappingContext> IMC;
 
 	UPROPERTY(EditAnywhere)
@@ -224,6 +227,9 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	TArray<class AFactorySourceActor*> FactorySource;
+
+	UPROPERTY(EditAnywhere)
+	TArray<FAllAlarmChildDataStruct> FullDataArray;
 
 	void Move(const FInputActionValue& Value);
 

@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "FactoryPlayerController.h"
 #include "SystemPopupWidget.generated.h"
 
 class UButton;
@@ -25,7 +26,7 @@ public:
 	UPROPERTY(meta = (BindWidget))
 	UGridPanel*  AlarmTableGird;
 
-	void AddRow(int32 RowIndex, const TArray<FString>& RowData);
+	void AddRow(const TArray<FAllAlarmChildDataStruct>& FilteredData);
 
 
 };

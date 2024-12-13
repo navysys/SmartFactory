@@ -11,6 +11,7 @@
 #include "Components/TextBlock.h"
 #include <Kismet/GameplayStatics.h>
 #include "FactoryPlayerController.h"
+#include "SystemPopupWidget.h"
 
 
 void UMainWidget::NativeConstruct()
@@ -96,6 +97,16 @@ void UMainWidget::ExitButtonClicked()
 
 void UMainWidget::HomeButtonClicked()
 {
+	if (IsValid(SystemPopupWidget))
+	{
+		USystemPopupWidget* SysPopup = CreateWidget<USystemPopupWidget>(this, SystemPopupWidget);
+		if (IsValid(SysPopup))
+		{
+			SysPopup->AddToViewport();
+
+		}
+	}
+
 	// 카메라 위치 초기화
 }
 

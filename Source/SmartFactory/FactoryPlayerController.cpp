@@ -8,6 +8,7 @@
 #include "InputMappingContext.h"
 #include "FactorySourceActor.h"
 #include "JsonUtilities.h"
+#include "SystemPopupWidget.h"
 
 
 void AFactoryPlayerController::BeginPlay()
@@ -33,7 +34,6 @@ void AFactoryPlayerController::BeginPlay()
 			InputSubsystem->AddMappingContext(IMC, 0);
 		}
 	}
-
 
 	if (IsValid(MainWidgetClass))
 	{
@@ -331,12 +331,11 @@ void AFactoryPlayerController::GetAllAlarmDataCallBack(FHttpRequestPtr Request, 
 	int Result;
 	int ItemCount;
 	TSharedPtr<FJsonValue> ChildData;
-
-	int AlarmNoResult;
+	/*int AlarmNoResult;
 	FString MCNameResult;
 	FString ContentsResult;
 	double ThresholdMaxResult;
-	int ThresholdMinResult;
+	int ThresholdMinResult;*/
 
 	// 서버와 성공적으로 통신이 완료되었는지 검사
 	if (!bWasSuccessful || !Response.IsValid())
@@ -367,14 +366,19 @@ void AFactoryPlayerController::GetAllAlarmDataCallBack(FHttpRequestPtr Request, 
 
 	TArray<TSharedPtr<FJsonValue>> AlaramChildData = ChildData.Get()->AsArray();
 
+	FAllAlarmChildDataStruct alarm;
+
 	for (TSharedPtr<FJsonValue> RootData : AlaramChildData)
 	{
-		RootData.Get()->AsObject()->TryGetNumberField(TEXT("alarmNo"), AlarmNoResult);
-		RootData.Get()->AsObject()->TryGetStringField(TEXT("mcName"), MCNameResult);
-		RootData.Get()->AsObject()->TryGetStringField(TEXT("contents"), ContentsResult);
-		RootData.Get()->AsObject()->TryGetNumberField(TEXT("thresholdMax"), ThresholdMaxResult);
-		RootData.Get()->AsObject()->TryGetNumberField(TEXT("thresholdMin"), ThresholdMinResult);
+		RootData.Get()->AsObject()->TryGetNumberField(TEXT("alarmNo"), alarm.AlarmNo);
+		RootData.Get()->AsObject()->TryGetStringField(TEXT("mcName"), alarm.MCName);
+		RootData.Get()->AsObject()->TryGetStringField(TEXT("contents"), alarm.Contents);
+		RootData.Get()->AsObject()->TryGetNumberField(TEXT("thresholdMax"), alarm.ThresholdMax);
+		RootData.Get()->AsObject()->TryGetNumberField(TEXT("thresholdMin"), alarm.ThresholdMin);
 
+		UE_LOG(LogTemp, Warning, TEXT("alarmno : %d"), alarm.AlarmNo);
+
+		FullDataArray.Add(alarm);
 		//UE_LOG(LogTemp, Warning, TEXT("AllAlarmAlarmNo : %d,  AllAlarmMCName : %s, AllAlarmContents : %s, AllAlarmThresholdMax : %f, AllAlarmThresholdMin : %d"), AlarmNoResult, *MCNameResult, *ContentsResult, ThresholdMaxResult, ThresholdMinResult);
 	}
 	// 파싱 데이터 사용 (해당 함수에서는 델리게이트 사용, 다른 방식으로 사용 가능)

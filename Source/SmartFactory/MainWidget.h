@@ -58,6 +58,9 @@ public:
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<class UPopupModuleWidget> PopupWidget;
 
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<class USystemPopupWidget> SystemPopupWidget;
+
 	//UPROPERTY(EditAnywhere)
 	//TArray<UItemWidget*> RootItems;
 	TArray<UItemWidget*> Items;
