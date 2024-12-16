@@ -54,9 +54,24 @@ void AFactoryPlayerController::Tick(float DeltaTime)
 	if (IsMove)
 	{
 		FVector2D Dir = (MousePos - CurrentPos).GetSafeNormal();
-		FVector Dir3D(0, Dir.X, -Dir.Y);
 		float Dist = FVector2D::Distance(MousePos, CurrentPos) * 0.5f;
-		GetPawn()->SetActorLocation(GetPawn()->GetActorLocation() + Dir3D * Dist);
+		if (Dir.X > 0.1f)
+		{
+			GetPawn()->SetActorLocation(GetPawn()->GetActorLocation() + Dist * GetPawn()->GetActorRightVector());
+		}
+		else if (Dir.X < -0.1f)
+		{
+			GetPawn()->SetActorLocation(GetPawn()->GetActorLocation() + -Dist * GetPawn()->GetActorRightVector());
+		}
+		
+		if (Dir.Y > 0.1f)
+		{
+			GetPawn()->SetActorLocation(GetPawn()->GetActorLocation() + -Dist * GetPawn()->GetActorUpVector());
+		}
+		else if (Dir.Y < -0.1f)
+		{
+			GetPawn()->SetActorLocation(GetPawn()->GetActorLocation() + Dist * GetPawn()->GetActorUpVector());
+		}
 	}
 	else if (IsRotation)
 	{
