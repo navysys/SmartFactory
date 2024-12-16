@@ -103,10 +103,8 @@ void UMainWidget::HomeButtonClicked()
 		if (IsValid(SysPopup))
 		{
 			SysPopup->AddToViewport();
-
 		}
 	}
-
 	// 카메라 위치 초기화
 }
 

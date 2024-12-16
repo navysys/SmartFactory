@@ -24,6 +24,5 @@ void USystemPopupWidget::NativeConstruct()
 		Alarm->AddRow(childstruct);
 
 		ContentVerticalBox->AddChildToVerticalBox(Alarm);
-
 	}
 }

@@ -18,7 +18,6 @@ class SMARTFACTORY_API USystemPopupWidget : public UUserWidget
 {
 	GENERATED_BODY()
 
-
 protected:
 	virtual void NativeConstruct() override;
 

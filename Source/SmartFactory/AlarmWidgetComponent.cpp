@@ -27,10 +27,6 @@ void UAlarmWidgetComponent::NativeConstruct()
 
 void UAlarmWidgetComponent::AddRow(const FAllAlarmChildDataStruct& FilteredData)
 {
-
-   /* for (const FAllAlarmChildDataStruct& AllAlaram: FilteredData)
-    {*/
-        //여기 에러야
     if (IsValid(AlarmNo))
     {
         AlarmNo->SetText(FText::AsNumber(FilteredData.AlarmNo));
@@ -44,8 +40,6 @@ void UAlarmWidgetComponent::AddRow(const FAllAlarmChildDataStruct& FilteredData)
         ThresholdMin->SetText(FText::AsNumber(FilteredData.ThresholdMin));
     }
 
-      
-        
         //USystemPopupWidget* SystemPopup = CreateWidget<USystemPopupWidget>(this, SystemPopupWidget);
 
         //// 부모 VerticalBox에 추가
@@ -56,7 +50,6 @@ void UAlarmWidgetComponent::AddRow(const FAllAlarmChildDataStruct& FilteredData)
         //    NewSlot->SetPadding(FMargin(5.f));
         //    NewSlot->SetHorizontalAlignment(EHorizontalAlignment::HAlign_Center);
         //}
-    //}
 }
 
 void UAlarmWidgetComponent::ModifyButtonCallBack()
