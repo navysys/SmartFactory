@@ -28,5 +28,4 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<UUserWidget> AlarmComponent;
-
 };
