@@ -60,7 +60,8 @@ void AFactoryPlayerController::Tick(float DeltaTime)
 	}
 	else if (IsRotation)
 	{
-
+		float RotInput = MousePos.X - CurrentPos.X;
+		GetPawn()->SetActorRotation(FRotator(0, GetPawn()->GetActorRotation().Yaw + RotInput, 0));
 	}
 }
 
@@ -91,14 +92,12 @@ void AFactoryPlayerController::MoveEnd(const FInputActionValue& Value)
 void AFactoryPlayerController::RotationStart(const FInputActionValue& Value)
 {
 	IsRotation = true;
-	UE_LOG(LogTemp, Warning, TEXT("IsRotion : %d"), IsRotation);
-	//AddYawInput(YawInput);
+	
 }
 
 void AFactoryPlayerController::RotationEnd(const FInputActionValue& Value)
 {
 	IsRotation = false;
-	UE_LOG(LogTemp, Warning, TEXT("IsRotion : %d"), IsRotation);
 }
 
 void AFactoryPlayerController::CreateTreeItem(FString NodeID, FString ParentID)
