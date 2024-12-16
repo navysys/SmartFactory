@@ -9,7 +9,7 @@
 
 class UButton;
 class UTextBlock;
-class UGridPanel;
+class UVerticalBox;
 /**
  * 
  */
@@ -20,13 +20,12 @@ class SMARTFACTORY_API USystemPopupWidget : public UUserWidget
 
 
 protected:
-	virtual void NativeOnInitialized();
+	virtual void NativeConstruct() override;
 
 public:
 	UPROPERTY(meta = (BindWidget))
-	UGridPanel*  AlarmTableGird;
+	UVerticalBox* ContentVerticalBox;
 
-	void AddRow(const TArray<FAllAlarmChildDataStruct>& FilteredData);
-
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<UUserWidget> AlarmComponent;
 };
