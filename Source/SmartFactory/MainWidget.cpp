@@ -185,6 +185,7 @@ void UMainWidget::OnTreeViewItemClicked(UObject* ClickedItem)
 					FActor->ResourceHighLightOnOff(true);
 				}
 				SourceActor->ResourceHighLightOnOff(false);
+				Cast<AFactoryPlayerController>(GetOwningPlayer())->TargetActor = SourceActor;
 			}
 		}
 	}

@@ -205,6 +205,7 @@ class SMARTFACTORY_API AFactoryPlayerController : public APlayerController
 	
 public:
 	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaTime) override;
 
 	virtual void SetupInputComponent() override;
 
@@ -220,10 +221,16 @@ public:
 	TObjectPtr<UInputMappingContext> IMC;
 
 	UPROPERTY(EditAnywhere)
-	TObjectPtr<UInputAction> IA_Move;
+	TObjectPtr<UInputAction> IA_MoveStart;
 
 	UPROPERTY(EditAnywhere)
-	TObjectPtr<UInputAction> IA_Rotation;
+	TObjectPtr<UInputAction> IA_MoveEnd;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UInputAction> IA_RotationStart;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UInputAction> IA_RotationEnd;
 
 	UPROPERTY(EditAnywhere)
 	TArray<class AFactorySourceActor*> FactorySource;
@@ -231,14 +238,23 @@ public:
 	UPROPERTY(EditAnywhere)
 	TArray<FAllAlarmChildDataStruct> FullDataArray;
 
-	void Move(const FInputActionValue& Value);
+	TObjectPtr<AActor> TargetActor;
 
-	void Rotation(const FInputActionValue& Value);
-	
+	void MoveStart(const FInputActionValue& Value);
+	void MoveEnd(const FInputActionValue& Value);
+	void RotationStart(const FInputActionValue& Value);
+	void RotationEnd(const FInputActionValue& Value);
+
 	void CreateTreeItem(FString NodeID, FString ParentID);
 
-	int Index1= 0;
-	int Index2;
+	bool IsMove;
+	bool IsRotation;
+
+	float PosX = 0;
+	float PosY = 0;
+
+	FVector TargetPos;
+	float TargetYaw;
 
 public:
 	//¼³ºñ SLITTER
