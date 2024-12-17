@@ -5,7 +5,8 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "FactoryPlayerController.h"
-#include "SystemPopupWidget.generated.h"
+#include "SystemAllPopupWidget.generated.h"
+
 
 class UButton;
 class UTextBlock;
@@ -14,10 +15,9 @@ class UVerticalBox;
  * 
  */
 UCLASS()
-class SMARTFACTORY_API USystemPopupWidget : public UUserWidget
+class SMARTFACTORY_API USystemAllPopupWidget : public UUserWidget
 {
 	GENERATED_BODY()
-
 protected:
 	virtual void NativeConstruct() override;
 
@@ -29,8 +29,9 @@ public:
 	UButton* CloseButton;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<UUserWidget> AlarmComponent;
+	TSubclassOf<UUserWidget> AllAlarmComponent;
 
 	UFUNCTION(BlueprintCallable)
 	void CloseButtonCallback();
+
 };
