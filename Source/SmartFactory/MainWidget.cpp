@@ -183,13 +183,14 @@ void UMainWidget::OnTreeViewItemClicked(UObject* ClickedItem)
 	if (UItemWidget* TreeItem = Cast<UItemWidget>(ClickedItem))
 	{
 		AFactorySourceActor* SourceActor = Cast<AFactorySourceActor>(TreeItem->Actor);
-		// 항목 클릭 시 실행할 동작
-		if (IsValid(SourceActor))
-		{
-			GetOwningPlayer()->GetPawn()->SetActorLocation(SourceActor->CameraPosition->GetComponentLocation());
 
+		if (TreeItem->Children.Num() == 0)
+		{
 			if (IsValid(SourceActor))
 			{
+
+				GetOwningPlayer()->GetPawn()->SetActorLocation(SourceActor->CameraPosition->GetComponentLocation());
+
 				TArray<AFactorySourceActor*> Source = Cast<AFactoryPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0))->FactorySource;
 				for (AFactorySourceActor* FActor : Source)
 				{
@@ -199,5 +200,20 @@ void UMainWidget::OnTreeViewItemClicked(UObject* ClickedItem)
 				Cast<AFactoryPlayerController>(GetOwningPlayer())->TargetActor = SourceActor;
 			}
 		}
+		else
+		{
+			TArray<AFactorySourceActor*> Source = Cast<AFactoryPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0))->FactorySource;
+			for (AFactorySourceActor* FActor : Source)
+			{
+				FActor->ResourceHighLightOnOff(true);
+			}
+			for (UItemWidget* ChildItem : TreeItem->Children)
+			{
+				AFactorySourceActor* ChildActor = Cast<AFactorySourceActor>(ChildItem->Actor);
+				ChildActor->ResourceHighLightOnOff(false);
+			}
+		}
+
 	}
+	TreeView->SetItemExpansion(ClickedItem, true);
 }
