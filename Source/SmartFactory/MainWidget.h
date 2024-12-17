@@ -9,6 +9,9 @@
 class UButton;
 class UTreeView;
 class UItemWidget;
+class UDataWidget;
+class UScrollBox;
+
 
 UCLASS()
 class SMARTFACTORY_API UMainWidget : public UUserWidget
@@ -35,11 +38,14 @@ public:
 	UFUNCTION()
 	void SystemPopupView();
 
+	
+
 
 	void CreateTreeItem(FString NodeID, FString ParentID);
 	void GetChildrenForItem(UObject* InItem, TArray<UObject*>& OutChildren);
 	void AddChildToItem(UItemWidget* ParentItem, UItemWidget* NewChildItem);
 	void OnTreeViewItemClicked(UObject* ClickedItem);
+	void UpdateDataWidget(FString VCName, FString DataName, float DataValue);
 
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UButton> SettingButton;
@@ -56,6 +62,9 @@ public:
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UButton> AlarmButton;
 
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UScrollBox> DataScrollBox;
+
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UUserWidget> SettingPopup;
 
@@ -68,7 +77,12 @@ public:
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<class USystemAllPopupWidget> SystemAllPopupWidget;
 
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UDataWidget> DataWidgetClass;
+
 	//UPROPERTY(EditAnywhere)
 	//TArray<UItemWidget*> RootItems;
 	TArray<UItemWidget*> Items;
+
+	TArray<UDataWidget*> Datas;
 };

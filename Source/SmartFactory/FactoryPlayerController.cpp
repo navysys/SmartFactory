@@ -347,6 +347,11 @@ void AFactoryPlayerController::GetVCMMainDataCallBack(FHttpRequestPtr Request, F
 		VCMMainChild.Get()->AsObject()->TryGetStringField(TEXT("vcName"), VCNameResult);
 		VCMMainChild.Get()->AsObject()->TryGetNumberField(TEXT("dataValue"), DataValueResult);
 
+		if (IsValid(MainWidget))
+		{
+			MainWidget->UpdateDataWidget(VCNameResult, DataNameResult, DataValueResult);
+		}
+
 		//UE_LOG(LogTemp, Warning, TEXT("ItemId : %s,  DataName : %s, VCID : %s, VCName : %s, DataValue : %d"), *ItemIdResult, *DataNameResult, *VCIDResult, *VCNameResult, DataValueResult);
 	}
 	// 파싱 데이터 사용 (해당 함수에서는 델리게이트 사용, 다른 방식으로 사용 가능)
@@ -420,21 +425,8 @@ void AFactoryPlayerController::GetAllAlarmDataCallBack(FHttpRequestPtr Request, 
 		UE_LOG(LogTemp, Warning, TEXT("alarmno : %d"), alarm.AlarmNo);
 
 		AllDataArray.Add(alarm);
-
-
-		//UE_LOG(LogTemp, Warning, TEXT("AllAlarmAlarmNo : %d,  AllAlarmMCName : %s, AllAlarmContents : %s, AllAlarmThresholdMax : %f, AllAlarmThresholdMin : %d"), AlarmNoResult, *MCNameResult, *ContentsResult, ThresholdMaxResult, ThresholdMinResult);
 	}
-
-	/*if (IsValid(MainWidgetClass))
-	{
-		MainWidget = CreateWidget<UMainWidget>(this, MainWidgetClass);
-		if (IsValid(MainWidget))
-		{
-			MainWidget->SystemAllPopupView();
-		}
-	}*/
-	// 파싱 데이터 사용 (해당 함수에서는 델리게이트 사용, 다른 방식으로 사용 가능)
-	//OnGetFruits.Broadcast(CallbackStruct);
+	
 }
 
 void AFactoryPlayerController::SendEachAlarmHttpRequest(FString FacilityNodeID)
@@ -508,13 +500,9 @@ void AFactoryPlayerController::GetEachAlarmDataCallBack(FHttpRequestPtr Request,
 		//UE_LOG(LogTemp, Warning, TEXT("AllAlarmAlarmNo : %d,  AllAlarmMCName : %s, AllAlarmContents : %s, AllAlarmThresholdMax : %f, AllAlarmThresholdMin : %d"), AlarmNoResult, *MCNameResult, *ContentsResult, ThresholdMaxResult, ThresholdMinResult);
 	}
 
-	if (IsValid(MainWidgetClass))
+	if (IsValid(MainWidget))
 	{
-		MainWidget = CreateWidget<UMainWidget>(this, MainWidgetClass);
-		if (IsValid(MainWidget))
-		{
-			MainWidget->SystemPopupView();
-		}
+		MainWidget->SystemPopupView();
 	}
 	// 파싱 데이터 사용 (해당 함수에서는 델리게이트 사용, 다른 방식으로 사용 가능)
 	//OnGetFruits.Broadcast(CallbackStruct);

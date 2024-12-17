@@ -13,6 +13,8 @@
 #include "FactoryPlayerController.h"
 #include "SystemPopupWidget.h"
 #include "SystemAllPopupWidget.h"
+#include "DataWidget.h"
+#include "Components/ScrollBox.h"
 
 
 void UMainWidget::NativeConstruct()
@@ -220,4 +222,51 @@ void UMainWidget::OnTreeViewItemClicked(UObject* ClickedItem)
 
 	}
 	TreeView->SetItemExpansion(ClickedItem, true);
+}
+
+void UMainWidget::UpdateDataWidget(FString VCName, FString DataName, float DataValue)
+{
+	bool IsSpawned = false;
+	for (UDataWidget* Data : Datas)
+	{
+		if (Data->DataName == DataName)
+		{
+			IsSpawned = true;
+		}
+	}
+
+	if (!IsSpawned)
+	{
+		bool IsRootSpawned = false;
+		for (UDataWidget* Data : Datas)
+		{
+			if (Data->DataName == VCName)
+			{
+				IsRootSpawned = true;
+			}
+		}
+
+		if (!IsRootSpawned)
+		{
+			if (IsValid(DataWidgetClass))
+			{
+				UDataWidget* SpawnedWidget = CreateWidget<UDataWidget>(this, DataWidgetClass);
+				SpawnedWidget->DataName = VCName;
+				SpawnedWidget->DataNameText->SetText(FText::FromString(VCName));
+				DataScrollBox->AddChild(SpawnedWidget);
+				Datas.Add(SpawnedWidget);
+
+				IsRootSpawned = true;
+			}
+		}
+
+		if (IsRootSpawned)
+		{
+			UDataWidget* SpawnedWidget = CreateWidget<UDataWidget>(this, DataWidgetClass);
+			SpawnedWidget->DataName = DataName;
+			SpawnedWidget->DataNameText->SetText(FText::FromString(DataName));
+			DataScrollBox->AddChild(SpawnedWidget);
+			Datas.Add(SpawnedWidget);
+		}
+	}
 }
