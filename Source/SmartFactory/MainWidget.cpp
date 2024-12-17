@@ -32,10 +32,11 @@ void UMainWidget::NativeConstruct()
 		HomeButton->OnClicked.AddDynamic(this, &UMainWidget::HomeButtonClicked);
 	}
 
-	//if (IsValid(AlarmButton))
-	//{
-	//	AlarmButton->OnClicked.AddDynamic(this, &UMainWidget::AlarmButtonClicked);
-	//}
+	if (IsValid(AlarmButton))
+	{
+		AlarmButton->OnClicked.AddDynamic(this, &UMainWidget::AlarmButtonClicked);
+	}
+
 	if (IsValid(TreeView))
 	{
 		TreeView->SetOnGetItemChildren(this, &UMainWidget::GetChildrenForItem);
@@ -97,6 +98,23 @@ void UMainWidget::ExitButtonClicked()
 
 void UMainWidget::HomeButtonClicked()
 {
+	
+	// 카메라 위치 초기화
+}
+
+void UMainWidget::AlarmButtonClicked()
+{
+	AFactoryPlayerController* PC = Cast<AFactoryPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
+	if (IsValid(PC))
+	{
+		FString FacilityNodeID = Cast<AFactoryPlayerController>(GetOwningPlayer())->TargetActor->GetActorLabel();
+		UE_LOG(LogTemp, Warning, TEXT("%s"),*FacilityNodeID);
+		PC->SendEachAlarmHttpRequest(FacilityNodeID);
+	}
+}
+
+void UMainWidget::SystemPopupView()
+{
 	if (IsValid(SystemPopupWidget))
 	{
 		USystemPopupWidget* SysPopup = CreateWidget<USystemPopupWidget>(this, SystemPopupWidget);
@@ -105,11 +123,6 @@ void UMainWidget::HomeButtonClicked()
 			SysPopup->AddToViewport();
 		}
 	}
-	// 카메라 위치 초기화
-}
-
-void UMainWidget::AlarmButtonClicked()
-{
 }
 
 void UMainWidget::CreateTreeItem(FString NodeID, FString ParentID)

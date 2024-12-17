@@ -177,7 +177,7 @@ public:
 
 //개별 알람
 USTRUCT(BlueprintType)
-struct FEachAlarmMainDataStruct
+struct FEachAlarmChildDataStruct
 {
 	GENERATED_USTRUCT_BODY()
 
@@ -197,6 +197,23 @@ public:
 	UPROPERTY(BlueprintReadWrite)
 	int ThresholdMin = 0;
 };
+
+USTRUCT(BlueprintType)
+struct FEachAlarmMainDataStruct
+{
+	GENERATED_USTRUCT_BODY()
+
+public:
+	UPROPERTY(BlueprintReadWrite)
+	int Result = 0;
+
+	UPROPERTY(BlueprintReadWrite)
+	int ItemCount = 0;
+
+	UPROPERTY(BlueprintReadWrite)
+	FEachAlarmChildDataStruct EachAlarmChild;
+};
+
 
 UCLASS()
 class SMARTFACTORY_API AFactoryPlayerController : public APlayerController
@@ -236,7 +253,10 @@ public:
 	TArray<class AFactorySourceActor*> FactorySource;
 
 	UPROPERTY(EditAnywhere)
-	TArray<FAllAlarmChildDataStruct> FullDataArray;
+	TArray<FAllAlarmChildDataStruct> AllDataArray;
+
+	UPROPERTY(EditAnywhere)
+	TArray<FEachAlarmChildDataStruct> EachDataArray;
 
 	TObjectPtr<AActor> TargetActor;
 
@@ -278,7 +298,7 @@ public:
 	void GetAllAlarmDataCallBack(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
 
 	//개별 알람
-	void SendEachAlarmHttpRequest();
+	void SendEachAlarmHttpRequest(FString FacilityNodeID);
 
 	void GetEachAlarmDataCallBack(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
 };

@@ -46,7 +46,7 @@ public:
 	UPROPERTY(meta = (BindWidget))
 	UButton* DeleteButton;
 
-	void AddRow(const FAllAlarmChildDataStruct& FilteredData);
+	void AddRow(const FEachAlarmChildDataStruct& FilteredData);
 
 	UFUNCTION(BlueprintCallable)
 	void ModifyButtonCallBack();

@@ -13,6 +13,8 @@ void UAlarmWidgetComponent::NativeConstruct()
 {
 	Super::NativeConstruct();
 
+    UE_LOG(LogTemp, Warning, TEXT("alarmwidgetcomponent native"));
+
 	//ModifyButton = Cast<UButton>(GetWidgetFromName(TEXT("ModifyButton")));
 
     if (IsValid(ModifyButton))
@@ -25,8 +27,9 @@ void UAlarmWidgetComponent::NativeConstruct()
 	AddRow(FactoryPlayerController->FullDataArray);*/
 }
 
-void UAlarmWidgetComponent::AddRow(const FAllAlarmChildDataStruct& FilteredData)
+void UAlarmWidgetComponent::AddRow(const FEachAlarmChildDataStruct& FilteredData)
 {
+
     if (IsValid(AlarmNo))
     {
         AlarmNo->SetText(FText::AsNumber(FilteredData.AlarmNo));

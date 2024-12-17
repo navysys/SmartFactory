@@ -25,6 +25,7 @@ void AFactorySourceActor::BeginPlay()
 	Super::BeginPlay();
 	
 	 AFactoryPlayerController* PC = Cast<AFactoryPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
+
 	 if (IsValid(PC))
 	 {
 		 PC->FactorySource.Emplace(this);

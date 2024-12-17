@@ -31,6 +31,7 @@ public:
 
 	UFUNCTION()
 	void AlarmButtonClicked();
+	void SystemPopupView();
 
 	void CreateTreeItem(FString NodeID, FString ParentID);
 	void GetChildrenForItem(UObject* InItem, TArray<UObject*>& OutChildren);
@@ -49,8 +50,8 @@ public:
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UTreeView> TreeView;
 
-	//UPROPERTY(meta = (BindWidget))
-	//TObjectPtr<UButton> AlarmButton;
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UButton> AlarmButton;
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UUserWidget> SettingPopup;

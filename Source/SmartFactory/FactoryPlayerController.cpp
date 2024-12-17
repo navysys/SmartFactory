@@ -21,7 +21,7 @@ void AFactoryPlayerController::BeginPlay()
 
 	SendVCMMainHttpRequest();
 
-	SendAllAlarmHttpRequest();
+	//SendAllAlarmHttpRequest();
 
 	//SendEachAlarmHttpRequest();
 
@@ -358,11 +358,6 @@ void AFactoryPlayerController::GetAllAlarmDataCallBack(FHttpRequestPtr Request, 
 	int Result;
 	int ItemCount;
 	TSharedPtr<FJsonValue> ChildData;
-	/*int AlarmNoResult;
-	FString MCNameResult;
-	FString ContentsResult;
-	double ThresholdMaxResult;
-	int ThresholdMinResult;*/
 
 	// 서버와 성공적으로 통신이 완료되었는지 검사
 	if (!bWasSuccessful || !Response.IsValid())
@@ -405,71 +400,91 @@ void AFactoryPlayerController::GetAllAlarmDataCallBack(FHttpRequestPtr Request, 
 
 		UE_LOG(LogTemp, Warning, TEXT("alarmno : %d"), alarm.AlarmNo);
 
-		FullDataArray.Add(alarm);
+		AllDataArray.Add(alarm);
 		//UE_LOG(LogTemp, Warning, TEXT("AllAlarmAlarmNo : %d,  AllAlarmMCName : %s, AllAlarmContents : %s, AllAlarmThresholdMax : %f, AllAlarmThresholdMin : %d"), AlarmNoResult, *MCNameResult, *ContentsResult, ThresholdMaxResult, ThresholdMinResult);
 	}
 	// 파싱 데이터 사용 (해당 함수에서는 델리게이트 사용, 다른 방식으로 사용 가능)
 	//OnGetFruits.Broadcast(CallbackStruct);
 }
 
-//void AFactoryPlayerController::SendEachAlarmHttpRequest()
-//{
-//	TSharedRef<IHttpRequest, ESPMode::ThreadSafe>  EachAlarmHttpRequest = FHttpModule::Get().CreateRequest(); 
-//	EachAlarmHttpRequest->SetURL("http://210.222.227.95/api/vcmdata/getalarm/ALL");
-//	EachAlarmHttpRequest->SetVerb("GET");
-//
-//	//  &AWebApi::GetDataCallBack 부분 변경 (서버에서 받아온 Json 파싱 함수)
-//	EachAlarmHttpRequest->OnProcessRequestComplete().BindUObject(this, &AFactoryPlayerController::GetEachAlarmDataCallBack);
-//
-//	// 요청 실행
-//	if (!EachAlarmHttpRequest->ProcessRequest())
-//	{
-//		UE_LOG(LogTemp, Error, TEXT("HTTP Request Failed"));
-//	}
-//}
-//
-//void AFactoryPlayerController::GetEachAlarmDataCallBack(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
-//{
-//	FEachAlarmMainDataStruct MainCallbackStruct;
-//	int AlarmNoResult;
-//	FString MCNameResult;
-//	FString ContentsResult;
-//	double ThresholdMaxResult;
-//	int ThresholdMinResult;
-//
-//	// 서버와 성공적으로 통신이 완료되었는지 검사
-//	if (!bWasSuccessful || !Response.IsValid())
-//	{
-//		UE_LOG(LogTemp, Error, TEXT("HTTP Response Failed."));
-//		return;
-//	}
-//
-//	//string으로 api 저장
-//	FString ContentString = Response->GetContentAsString();
-//
-//	//Json 데이터를 저장하기 위한 배열
-//	TArray<TSharedPtr<FJsonValue>> JsonArray;
-//	TSharedRef<TJsonReader<TCHAR>> Reader = TJsonReaderFactory<TCHAR>::Create(ContentString);
-//
-//	if (FJsonSerializer::Deserialize(Reader, JsonArray))
-//	{
-//		UE_LOG(LogTemp, Log, TEXT("JSON  Parse Successed: %s"), *ContentString);
-//	}
-//	else
-//	{
-//		UE_LOG(LogTemp, Error, TEXT("JSON Parse Failed: %s"), *ContentString);
-//	}
-//
-//	for (TSharedPtr<FJsonValue> RootData : JsonArray)
-//	{
-//		RootData.Get()->AsObject()->TryGetNumberField(TEXT("AlarmNo"), AlarmNoResult);
-//		RootData.Get()->AsObject()->TryGetStringField(TEXT("MCName"), MCNameResult);
-//		RootData.Get()->AsObject()->TryGetStringField(TEXT("Contents"), ContentsResult);
-//		RootData.Get()->AsObject()->TryGetNumberField(TEXT("ThresholdMax"), ThresholdMaxResult);
-//		RootData.Get()->AsObject()->TryGetNumberField(TEXT("ThresholdMin"), ThresholdMinResult);
-//
-//		UE_LOG(LogTemp, Warning, TEXT("EachAlarmAlarmNo : %d,  EachAlarmMCName : %s, EachAlarmContents : %s, EachAlarmThresholdMax : %f, EachAlarmThresholdMin : %d"), AlarmNoResult, *MCNameResult, *ContentsResult, ThresholdMaxResult, ThresholdMinResult);
-//	}
-//	// 파싱 데이터 사용 (해당 함수에서는 델리게이트 사용, 다른 방식으로 사용 가능)
-//	//OnGetFruits.Broadcast(CallbackStruct);
-//}
+void AFactoryPlayerController::SendEachAlarmHttpRequest(FString FacilityNodeID)
+{
+	/*FString BaseURL = TEXT("http://210.222.227.95/api/vcmdata/getalarm/");*/
+
+	TSharedRef<IHttpRequest, ESPMode::ThreadSafe>  EachAlarmHttpRequest = FHttpModule::Get().CreateRequest(); 
+	/*EachAlarmHttpRequest->SetURL(BaseURL + FacilityNodeID);*/
+	EachAlarmHttpRequest->SetURL("http://210.222.227.95/api/vcmdata/getalarm/VC0010");
+	EachAlarmHttpRequest->SetVerb("GET");
+
+	//  &AWebApi::GetDataCallBack 부분 변경 (서버에서 받아온 Json 파싱 함수)
+	EachAlarmHttpRequest->OnProcessRequestComplete().BindUObject(this, &AFactoryPlayerController::GetEachAlarmDataCallBack);
+
+	// 요청 실행
+	if (!EachAlarmHttpRequest->ProcessRequest())
+	{
+		UE_LOG(LogTemp, Error, TEXT("HTTP Request Failed"));
+	}
+}
+
+void AFactoryPlayerController::GetEachAlarmDataCallBack(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
+{
+	int Result;
+	int ItemCount;
+	TSharedPtr<FJsonValue> ChildData;
+
+	// 서버와 성공적으로 통신이 완료되었는지 검사
+	if (!bWasSuccessful || !Response.IsValid())
+	{
+		UE_LOG(LogTemp, Error, TEXT("HTTP Response Failed."));
+		return;
+	}
+
+	//string으로 api 저장
+	FString ContentString = Response->GetContentAsString();
+
+	//Json 데이터를 저장하기 위한 배열
+	TSharedPtr<FJsonValue> JsonData;
+	TSharedRef<TJsonReader<TCHAR>> Reader = TJsonReaderFactory<TCHAR>::Create(ContentString);
+
+	if (FJsonSerializer::Deserialize(Reader, JsonData))
+	{
+		UE_LOG(LogTemp, Log, TEXT("JSON  Parse Successed: %s"), *ContentString);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("JSON Parse Failed: %s"), *ContentString);
+	}
+
+	JsonData.Get()->AsObject()->TryGetNumberField(TEXT("result"), Result);
+	JsonData.Get()->AsObject()->TryGetNumberField(TEXT("itemCount"), ItemCount);
+	ChildData = JsonData.Get()->AsObject()->TryGetField(TEXT("data"));
+
+	TArray<TSharedPtr<FJsonValue>> AlaramChildData = ChildData.Get()->AsArray();
+
+	FEachAlarmChildDataStruct alarm;
+
+	for (TSharedPtr<FJsonValue> RootData : AlaramChildData)
+	{
+		RootData.Get()->AsObject()->TryGetNumberField(TEXT("alarmNo"), alarm.AlarmNo);
+		RootData.Get()->AsObject()->TryGetStringField(TEXT("mcName"), alarm.MCName);
+		RootData.Get()->AsObject()->TryGetStringField(TEXT("contents"), alarm.Contents);
+		RootData.Get()->AsObject()->TryGetNumberField(TEXT("thresholdMax"), alarm.ThresholdMax);
+		RootData.Get()->AsObject()->TryGetNumberField(TEXT("thresholdMin"), alarm.ThresholdMin);
+
+		UE_LOG(LogTemp, Warning, TEXT("alarmno : %d"), alarm.AlarmNo);
+
+		EachDataArray.Add(alarm);
+		//UE_LOG(LogTemp, Warning, TEXT("AllAlarmAlarmNo : %d,  AllAlarmMCName : %s, AllAlarmContents : %s, AllAlarmThresholdMax : %f, AllAlarmThresholdMin : %d"), AlarmNoResult, *MCNameResult, *ContentsResult, ThresholdMaxResult, ThresholdMinResult);
+	}
+
+	if (IsValid(MainWidgetClass))
+	{
+		MainWidget = CreateWidget<UMainWidget>(this, MainWidgetClass);
+		if (IsValid(MainWidget))
+		{
+			MainWidget->SystemPopupView();
+		}
+	}
+	// 파싱 데이터 사용 (해당 함수에서는 델리게이트 사용, 다른 방식으로 사용 가능)
+	//OnGetFruits.Broadcast(CallbackStruct);
+}

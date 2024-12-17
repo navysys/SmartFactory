@@ -16,9 +16,12 @@ void USystemPopupWidget::NativeConstruct()
 	Super::NativeConstruct();
 
 	AFactoryPlayerController* FactoryPlayerController = Cast<AFactoryPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
+	UE_LOG(LogTemp, Warning, TEXT("destination"));
 
-	for (FAllAlarmChildDataStruct childstruct : FactoryPlayerController->FullDataArray)
+	for (FEachAlarmChildDataStruct childstruct : FactoryPlayerController->EachDataArray)
 	{
+		UE_LOG(LogTemp, Warning, TEXT("destination"));
+
 		UAlarmWidgetComponent* Alarm = CreateWidget<UAlarmWidgetComponent>(this, AlarmComponent);
 
 		Alarm->AddRow(childstruct);
