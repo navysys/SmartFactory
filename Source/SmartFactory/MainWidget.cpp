@@ -210,7 +210,10 @@ void UMainWidget::OnTreeViewItemClicked(UObject* ClickedItem)
 			for (UItemWidget* ChildItem : TreeItem->Children)
 			{
 				AFactorySourceActor* ChildActor = Cast<AFactorySourceActor>(ChildItem->Actor);
-				ChildActor->ResourceHighLightOnOff(false);
+				if (IsValid(ChildActor))
+				{
+					ChildActor->ResourceHighLightOnOff(false);
+				}
 			}
 		}
 

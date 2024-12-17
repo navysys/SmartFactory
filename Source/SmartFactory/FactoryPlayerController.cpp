@@ -72,6 +72,8 @@ void AFactoryPlayerController::Tick(float DeltaTime)
 		{
 			GetPawn()->SetActorLocation(GetPawn()->GetActorLocation() + Dist * GetPawn()->GetActorUpVector());
 		}
+		Cast<AFactorySourceActor>(TargetActor)->ResourceHighLightOnOff(true);
+		TargetActor = nullptr;
 	}
 	else if (IsRotation)
 	{
