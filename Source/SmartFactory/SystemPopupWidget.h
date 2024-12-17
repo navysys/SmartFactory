@@ -28,9 +28,27 @@ public:
 	UPROPERTY(meta = (BindWidget))
 	UButton* CloseButton;
 
+	UPROPERTY(meta = (BindWidget))
+	UButton* CreateButton;
+
+	UPROPERTY(meta = (BindWidget))
+	UButton* ModelCategoryButton;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<UUserWidget> AlarmComponent;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<UUserWidget> CreateAlarm;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<UUserWidget> AllAlarm;
+
 	UFUNCTION(BlueprintCallable)
 	void CloseButtonCallback();
+
+	UFUNCTION(BlueprintCallable)
+	void CreateButtonCallback();
+
+	UFUNCTION(BlueprintCallable)
+	void ModelCategoryButtonCallback();
 };

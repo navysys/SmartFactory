@@ -32,11 +32,10 @@ void UAllAlarmWidgetComponent::AddRow(const FAllAlarmChildDataStruct& FilteredDa
         DataType2->SetText(FText::FromString(FilteredData.dataType2));
 
         alarmStatus->SetText(FText::FromString(FilteredData.alarmStatus));
-
-
     }
 }
 
 void UAllAlarmWidgetComponent::AlarmDataButtonCallBack()
 {
+
 }

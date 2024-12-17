@@ -7,6 +7,7 @@
 #include "SystemPopupWidget.h"
 #include <Components/VerticalBox.h>
 #include <Components/VerticalBoxSlot.h>
+#include "ChangeAlarmWidget.h"
 
 
 void UAlarmWidgetComponent::NativeConstruct()
@@ -37,6 +38,8 @@ void UAlarmWidgetComponent::AddRow(const FEachAlarmChildDataStruct& FilteredData
 
         Contents->SetText(FText::FromString(FilteredData.Contents));
 
+        dataType->SetText(FText::FromString(FilteredData.dataType));
+
         ThresholdMax->SetText(FText::AsNumber(FilteredData.ThresholdMax));
 
         ThresholdMin->SetText(FText::AsNumber(FilteredData.ThresholdMin));
@@ -55,5 +58,10 @@ void UAlarmWidgetComponent::AddRow(const FEachAlarmChildDataStruct& FilteredData
 
 void UAlarmWidgetComponent::ModifyButtonCallBack()
 {
+    UChangeAlarmWidget* ChangeAlarmWidget = CreateWidget<UChangeAlarmWidget>(this, ChangeAlarm);
 
+    if(IsValid(ChangeAlarmWidget))
+    {
+        ChangeAlarmWidget->AddToViewport();
+    }
 }

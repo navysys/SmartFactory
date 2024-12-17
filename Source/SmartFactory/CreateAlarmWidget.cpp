@@ -2,4 +2,16 @@
 
 
 #include "CreateAlarmWidget.h"
+#include "Components/Button.h"
 
+void UCreateAlarmWidget::NativeConstruct()
+{
+	CloseButton = Cast<UButton>(GetWidgetFromName(TEXT("CloseButton")));
+
+	CloseButton->OnClicked.AddDynamic(this, &UCreateAlarmWidget::CloseButtonCallBack);
+}
+
+void UCreateAlarmWidget::CloseButtonCallBack()
+{
+	RemoveFromParent();
+}

@@ -32,6 +32,9 @@ public:
 	UTextBlock* Contents;
 
 	UPROPERTY(meta = (BindWidget))
+	UTextBlock* dataType;
+
+	UPROPERTY(meta = (BindWidget))
 	UTextBlock* ThresholdMax;
 
 	UPROPERTY(meta = (BindWidget))
@@ -45,6 +48,9 @@ public:
 
 	UPROPERTY(meta = (BindWidget))
 	UButton* DeleteButton;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<UUserWidget> ChangeAlarm;
 
 	void AddRow(const FEachAlarmChildDataStruct& FilteredData);
 

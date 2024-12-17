@@ -35,8 +35,6 @@ public:
 	UFUNCTION()
 	void SystemPopupView();
 
-	UFUNCTION()
-	void SystemAllPopupView();
 
 	void CreateTreeItem(FString NodeID, FString ParentID);
 	void GetChildrenForItem(UObject* InItem, TArray<UObject*>& OutChildren);

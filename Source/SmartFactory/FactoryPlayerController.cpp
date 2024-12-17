@@ -21,7 +21,7 @@ void AFactoryPlayerController::BeginPlay()
 
 	SendVCMMainHttpRequest();
 
-	//SendAllAlarmHttpRequest();
+	SendAllAlarmHttpRequest();
 
 	//SendEachAlarmHttpRequest();
 
@@ -425,14 +425,14 @@ void AFactoryPlayerController::GetAllAlarmDataCallBack(FHttpRequestPtr Request, 
 		//UE_LOG(LogTemp, Warning, TEXT("AllAlarmAlarmNo : %d,  AllAlarmMCName : %s, AllAlarmContents : %s, AllAlarmThresholdMax : %f, AllAlarmThresholdMin : %d"), AlarmNoResult, *MCNameResult, *ContentsResult, ThresholdMaxResult, ThresholdMinResult);
 	}
 
-	if (IsValid(MainWidgetClass))
+	/*if (IsValid(MainWidgetClass))
 	{
 		MainWidget = CreateWidget<UMainWidget>(this, MainWidgetClass);
 		if (IsValid(MainWidget))
 		{
 			MainWidget->SystemAllPopupView();
 		}
-	}
+	}*/
 	// 파싱 데이터 사용 (해당 함수에서는 델리게이트 사용, 다른 방식으로 사용 가능)
 	//OnGetFruits.Broadcast(CallbackStruct);
 }
@@ -498,6 +498,7 @@ void AFactoryPlayerController::GetEachAlarmDataCallBack(FHttpRequestPtr Request,
 		RootData.Get()->AsObject()->TryGetNumberField(TEXT("alarmNo"), alarm.AlarmNo);
 		RootData.Get()->AsObject()->TryGetStringField(TEXT("mcName"), alarm.MCName);
 		RootData.Get()->AsObject()->TryGetStringField(TEXT("contents"), alarm.Contents);
+		RootData.Get()->AsObject()->TryGetStringField(TEXT("dataType"), alarm.dataType);
 		RootData.Get()->AsObject()->TryGetNumberField(TEXT("thresholdMax"), alarm.ThresholdMax);
 		RootData.Get()->AsObject()->TryGetNumberField(TEXT("thresholdMin"), alarm.ThresholdMin);
 

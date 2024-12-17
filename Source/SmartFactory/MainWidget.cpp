@@ -126,18 +126,6 @@ void UMainWidget::SystemPopupView()
 	}
 }
 
-void UMainWidget::SystemAllPopupView()
-{
-	if (IsValid(SystemAllPopupWidget))
-	{
-		USystemAllPopupWidget* SysAllPopup = CreateWidget<USystemAllPopupWidget>(this, SystemAllPopupWidget);
-		if (IsValid(SysAllPopup))
-		{
-			SysAllPopup->AddToViewport();
-		}
-	}
-}
-
 void UMainWidget::CreateTreeItem(FString NodeID, FString ParentID)
 {
 	//UE_LOG(LogTemp, Warning, TEXT("ParentID = %S , NodeID = %s"), *ParentID, *NodeID);

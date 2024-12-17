@@ -198,6 +198,9 @@ public:
 	FString Contents = "";
 
 	UPROPERTY(BlueprintReadWrite)
+	FString dataType = "";
+
+	UPROPERTY(BlueprintReadWrite)
 	double ThresholdMax = 0;
 
 	UPROPERTY(BlueprintReadWrite)
