@@ -12,6 +12,7 @@
 #include <Kismet/GameplayStatics.h>
 #include "FactoryPlayerController.h"
 #include "SystemPopupWidget.h"
+#include "SystemAllPopupWidget.h"
 
 
 void UMainWidget::NativeConstruct()
@@ -121,6 +122,18 @@ void UMainWidget::SystemPopupView()
 		if (IsValid(SysPopup))
 		{
 			SysPopup->AddToViewport();
+		}
+	}
+}
+
+void UMainWidget::SystemAllPopupView()
+{
+	if (IsValid(SystemAllPopupWidget))
+	{
+		USystemAllPopupWidget* SysAllPopup = CreateWidget<USystemAllPopupWidget>(this, SystemAllPopupWidget);
+		if (IsValid(SysAllPopup))
+		{
+			SysAllPopup->AddToViewport();
 		}
 	}
 }

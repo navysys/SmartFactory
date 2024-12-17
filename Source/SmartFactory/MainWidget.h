@@ -31,7 +31,12 @@ public:
 
 	UFUNCTION()
 	void AlarmButtonClicked();
+
+	UFUNCTION()
 	void SystemPopupView();
+
+	UFUNCTION()
+	void SystemAllPopupView();
 
 	void CreateTreeItem(FString NodeID, FString ParentID);
 	void GetChildrenForItem(UObject* InItem, TArray<UObject*>& OutChildren);
@@ -61,6 +66,9 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<class USystemPopupWidget> SystemPopupWidget;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<class USystemAllPopupWidget> SystemAllPopupWidget;
 
 	//UPROPERTY(EditAnywhere)
 	//TArray<UItemWidget*> RootItems;

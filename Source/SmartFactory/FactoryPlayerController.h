@@ -153,10 +153,16 @@ public:
 	FString Contents = "";
 
 	UPROPERTY(BlueprintReadWrite)
-	double ThresholdMax = 0;
+	FString regdate = "";
 
 	UPROPERTY(BlueprintReadWrite)
-	int ThresholdMin = 0;
+	FString dataType = "";
+
+	UPROPERTY(BlueprintReadWrite)
+	FString dataType2 = "";
+
+	UPROPERTY(BlueprintReadWrite)
+	FString alarmStatus = "";
 };
 
 USTRUCT(BlueprintType)
