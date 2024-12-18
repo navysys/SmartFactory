@@ -17,6 +17,7 @@
 #include "Components/ScrollBox.h"
 #include "FactoryPawn.h"
 #include "Blueprint/UserWidget.h"
+#include "TimerManager.h"
 
 
 void UMainWidget::NativeConstruct()
@@ -116,7 +117,7 @@ void UMainWidget::AlarmButtonClicked()
 		{
 			FString FacilityNodeID = Cast<AFactoryPlayerController>(GetOwningPlayer())->TargetActor->GetActorLabel();
 			UE_LOG(LogTemp, Warning, TEXT("%s"), *FacilityNodeID);
-			PC->SendEachAlarmHttpRequest(FacilityNodeID);
+			PC->EachAlarmTimer(FacilityNodeID);
 		}
 		
 	}
@@ -260,7 +261,9 @@ void UMainWidget::UpdateDataWidget(FString VCName, FString DataName, float DataV
 				UDataWidget* SpawnedWidget = CreateWidget<UDataWidget>(this, DataWidgetClass);
 				SpawnedWidget->DataName = VCName;
 				SpawnedWidget->DataNameText->SetText(FText::FromString(VCName));
-				SpawnedWidget->DataNameText->Font.Size = 14;
+				FSlateFontInfo FontInfo;
+				FontInfo.Size = 14;
+				SpawnedWidget->DataNameText->SetFont(FontInfo);
 				SpawnedWidget->DataValueText->SetText(FText::FromString(TEXT(" ")));
 
 				DataScrollBox->AddChild(SpawnedWidget);

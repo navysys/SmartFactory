@@ -85,4 +85,6 @@ public:
 	TArray<UItemWidget*> Items;
 
 	TArray<UDataWidget*> Datas;
+
+	FTimerHandle TimerHandle;
 };
