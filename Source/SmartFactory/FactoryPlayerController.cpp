@@ -9,7 +9,7 @@
 #include "FactorySourceActor.h"
 #include "JsonUtilities.h"
 #include "SystemPopupWidget.h"
-
+#include "TimerManager.h"
 
 void AFactoryPlayerController::BeginPlay()
 {
@@ -21,7 +21,9 @@ void AFactoryPlayerController::BeginPlay()
 
 	SendVCMMainHttpRequest();
 
-	SendAllAlarmHttpRequest();
+	GetWorldTimerManager().SetTimer(TimerHandle, this, &AFactoryPlayerController::SendAllAlarmHttpRequest, 1.0f, true);
+
+	//SendAllAlarmHttpRequest();
 
 	//SendEachAlarmHttpRequest();
 
@@ -381,6 +383,7 @@ void AFactoryPlayerController::SendAllAlarmHttpRequest()
 
 void AFactoryPlayerController::GetAllAlarmDataCallBack(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
 {
+	AllDataArray.Empty();
 	FAllAlarmMainDataStruct MainCallbackStruct;
 	int Result;
 	int ItemCount;
@@ -455,6 +458,7 @@ void AFactoryPlayerController::SendEachAlarmHttpRequest(FString FacilityNodeID)
 
 void AFactoryPlayerController::GetEachAlarmDataCallBack(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
 {
+	EachDataArray.Empty();
 	int Result;
 	int ItemCount;
 	TSharedPtr<FJsonValue> ChildData;
