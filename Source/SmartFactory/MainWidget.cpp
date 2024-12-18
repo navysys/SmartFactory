@@ -238,6 +238,7 @@ void UMainWidget::UpdateDataWidget(FString VCName, FString DataName, float DataV
 		if (Data->DataName == DataName)
 		{
 			IsSpawned = true;
+			Data->DataValueText->SetText(FText::AsNumber(DataValue));
 		}
 	}
 

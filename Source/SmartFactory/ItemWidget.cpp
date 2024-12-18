@@ -12,6 +12,7 @@ void UItemWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
 
+	
 }
 
 void UItemWidget::NativeOnListItemObjectSet(UObject* ListItemObject)
