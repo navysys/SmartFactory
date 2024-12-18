@@ -107,6 +107,8 @@ void AFactoryPlayerController::EachAlarmTimer(FString FacilityNodeID)
 {
 	FString NodeID = FacilityNodeID;
 
+	SendEachAlarmHttpRequest(NodeID);
+
 	TimerDelegate.BindUFunction(this, FName("SendEachAlarmHttpRequest"), NodeID);
 
 	GetWorldTimerManager().SetTimer(TimerHandle, 
@@ -520,10 +522,18 @@ void AFactoryPlayerController::GetEachAlarmDataCallBack(FHttpRequestPtr Request,
 		//UE_LOG(LogTemp, Warning, TEXT("AllAlarmAlarmNo : %d,  AllAlarmMCName : %s, AllAlarmContents : %s, AllAlarmThresholdMax : %f, AllAlarmThresholdMin : %d"), AlarmNoResult, *MCNameResult, *ContentsResult, ThresholdMaxResult, ThresholdMinResult);
 	}
 
-	//if (IsValid(MainWidget))
-	//{
-	//	MainWidget->SystemPopupView();
-	//}
+	if (IsValid(MainWidget))
+	{
+		if (!IsValid(Systempopup))
+		{
+			Systempopup = CreateWidget<USystemPopupWidget>(this, SystemPopupWidget);
+			if (IsValid(Systempopup))
+			{
+				Systempopup->AddToViewport();
+			}
+		}
+		
+	}
 	// 파싱 데이터 사용 (해당 함수에서는 델리게이트 사용, 다른 방식으로 사용 가능)
 	//OnGetFruits.Broadcast(CallbackStruct);
 }

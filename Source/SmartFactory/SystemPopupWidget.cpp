@@ -44,6 +44,8 @@ void USystemPopupWidget::NativeConstruct()
 void USystemPopupWidget::CloseButtonCallback()
 {
 	AFactoryPlayerController* FactoryPlayerController = Cast<AFactoryPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
+	FactoryPlayerController->Systempopup = nullptr;
+	GetWorld()->GetTimerManager().ClearTimer(FactoryPlayerController->TimerHandle);
 	/*FactoryPlayerController->EachDataArray.Empty();*/
 	RemoveFromParent();
 }
