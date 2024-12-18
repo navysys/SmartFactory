@@ -119,20 +119,21 @@ void UMainWidget::AlarmButtonClicked()
 			UE_LOG(LogTemp, Warning, TEXT("%s"), *FacilityNodeID);
 			PC->EachAlarmTimer(FacilityNodeID);
 		}
-		
+
+		if (IsValid(SystemPopupWidget))
+		{
+			USystemPopupWidget* SysPopup = CreateWidget<USystemPopupWidget>(this, SystemPopupWidget);
+			if (IsValid(SysPopup))
+			{
+				SysPopup->AddToViewport();
+			}
+		}
 	}
 }
 
 void UMainWidget::SystemPopupView()
 {
-	if (IsValid(SystemPopupWidget))
-	{
-		USystemPopupWidget* SysPopup = CreateWidget<USystemPopupWidget>(this, SystemPopupWidget);
-		if (IsValid(SysPopup))
-		{
-			SysPopup->AddToViewport();
-		}
-	}
+	
 }
 
 void UMainWidget::CreateTreeItem(FString NodeID, FString ParentID)
