@@ -28,13 +28,12 @@ void USystemPopupWidget::NativeConstruct()
 	ModelCategoryButton->OnClicked.AddDynamic(this, &USystemPopupWidget::ModelCategoryButtonCallback);
 
 	AFactoryPlayerController* FactoryPlayerController = Cast<AFactoryPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
-	UE_LOG(LogTemp, Warning, TEXT("destination"));
 
 	for (FEachAlarmChildDataStruct childstruct : FactoryPlayerController->EachDataArray)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("destination"));
-
 		UAlarmWidgetComponent* Alarm = CreateWidget<UAlarmWidgetComponent>(this, AlarmComponent);
+
+		Title->SetText(FText::FromString(childstruct.MCName));
 
 		Alarm->AddRow(childstruct);
 

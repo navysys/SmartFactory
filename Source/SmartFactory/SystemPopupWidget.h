@@ -34,6 +34,9 @@ public:
 	UPROPERTY(meta = (BindWidget))
 	UButton* ModelCategoryButton;
 
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* Title;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<UUserWidget> AlarmComponent;
 
