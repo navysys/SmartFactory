@@ -261,9 +261,10 @@ void UMainWidget::UpdateDataWidget(FString VCName, FString DataName, float DataV
 				UDataWidget* SpawnedWidget = CreateWidget<UDataWidget>(this, DataWidgetClass);
 				SpawnedWidget->DataName = VCName;
 				SpawnedWidget->DataNameText->SetText(FText::FromString(VCName));
-				FSlateFontInfo FontInfo;
-				FontInfo.Size = 14;
-				SpawnedWidget->DataNameText->SetFont(FontInfo);
+				//FSlateFontInfo FontInfo;
+				//FontInfo.Size = 14;
+				//SpawnedWidget->DataNameText->SetFont(FontInfo);
+				SpawnedWidget->DataNameText->Font.Size = 14;
 				SpawnedWidget->DataValueText->SetText(FText::FromString(TEXT(" ")));
 
 				DataScrollBox->AddChild(SpawnedWidget);
