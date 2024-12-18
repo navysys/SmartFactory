@@ -269,6 +269,8 @@ public:
 
 	TObjectPtr<AActor> TargetActor;
 
+	FTimerHandle TimerHandle;
+
 	void MoveStart(const FInputActionValue& Value);
 	void MoveEnd(const FInputActionValue& Value);
 	void RotationStart(const FInputActionValue& Value);
