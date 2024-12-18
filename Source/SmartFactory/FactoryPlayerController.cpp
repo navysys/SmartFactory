@@ -84,7 +84,7 @@ void AFactoryPlayerController::Tick(float DeltaTime)
 	}
 	else if (IsRotation)
 	{
-		float RotInput = MousePos.X - CurrentPos.X;
+		float RotInput = (MousePos.X - CurrentPos.X) * 0.5f; //0.5f 는 속도 조절
 		GetPawn()->SetActorRotation(FRotator(0, GetPawn()->GetActorRotation().Yaw + RotInput, 0));
 	}
 }
