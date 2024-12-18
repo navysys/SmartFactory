@@ -47,7 +47,7 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	FVector StartPos;
-
+	FRotator StartRot;
 
 
 };

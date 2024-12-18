@@ -19,7 +19,7 @@ public:
 	virtual void NativeConstruct() override;
 	virtual void NativeOnListItemObjectSet(UObject* ListItemObject) override;
 
-	UPROPERTY(meta = (BindWidget))
+	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
 	TObjectPtr<UTextBlock> ItemName;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "TreeItem")

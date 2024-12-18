@@ -16,6 +16,7 @@
 #include "DataWidget.h"
 #include "Components/ScrollBox.h"
 #include "FactoryPawn.h"
+#include "Blueprint/UserWidget.h"
 
 
 void UMainWidget::NativeConstruct()
@@ -254,6 +255,9 @@ void UMainWidget::UpdateDataWidget(FString VCName, FString DataName, float DataV
 				UDataWidget* SpawnedWidget = CreateWidget<UDataWidget>(this, DataWidgetClass);
 				SpawnedWidget->DataName = VCName;
 				SpawnedWidget->DataNameText->SetText(FText::FromString(VCName));
+				SpawnedWidget->DataNameText->Font.Size = 14;
+				SpawnedWidget->DataValueText->SetText(FText::FromString(TEXT(" ")));
+
 				DataScrollBox->AddChild(SpawnedWidget);
 				Datas.Add(SpawnedWidget);
 
@@ -265,7 +269,10 @@ void UMainWidget::UpdateDataWidget(FString VCName, FString DataName, float DataV
 		{
 			UDataWidget* SpawnedWidget = CreateWidget<UDataWidget>(this, DataWidgetClass);
 			SpawnedWidget->DataName = DataName;
-			SpawnedWidget->DataNameText->SetText(FText::FromString(DataName));
+			SpawnedWidget->DataValueText->SetText(FText::AsNumber(DataValue));
+			FString DataText = FString("    ") + DataName;
+			SpawnedWidget->DataNameText->SetText(FText::FromString(DataText));
+			
 			DataScrollBox->AddChild(SpawnedWidget);
 			Datas.Add(SpawnedWidget);
 		}

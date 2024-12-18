@@ -52,5 +52,6 @@ void AFactoryPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 void AFactoryPawn::SetStartPos()
 {
 	SetActorLocation(StartPos);
+	SetActorRotation(StartRot);
 }
 

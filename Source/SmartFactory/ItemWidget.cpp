@@ -12,13 +12,15 @@ void UItemWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	
 }
 
 void UItemWidget::NativeOnListItemObjectSet(UObject* ListItemObject)
 {
+	
 	UItemWidget* Item = Cast<UItemWidget>(ListItemObject);
 	ItemName->SetText(FText::FromString(Item->NodeID));
+
+	//
 
 	if (Item->Children.Num() == 0)
 	{
