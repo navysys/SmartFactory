@@ -446,19 +446,18 @@ void AFactoryPlayerController::GetAllAlarmDataCallBack(FHttpRequestPtr Request, 
 
 		AllDataArray.Add(alarm);
 	}
-	
 }
 
 void AFactoryPlayerController::SendEachAlarmHttpRequest(FString FacilityNodeID)
 {
 	/*FString BaseURL = TEXT("http://210.222.227.95/api/vcmdata/getalarm/");*/
 
-	TSharedRef<IHttpRequest, ESPMode::ThreadSafe>  EachAlarmHttpRequest = FHttpModule::Get().CreateRequest(); 
+	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> EachAlarmHttpRequest = FHttpModule::Get().CreateRequest(); 
 	/*EachAlarmHttpRequest->SetURL(BaseURL + FacilityNodeID);*/
 	EachAlarmHttpRequest->SetURL("http://210.222.227.95/api/vcmdata/getalarm/VC0010");
 	EachAlarmHttpRequest->SetVerb("GET");
 
-	//  &AWebApi::GetDataCallBack 부분 변경 (서버에서 받아온 Json 파싱 함수)
+	//&AWebApi::GetDataCallBack 부분 변경 (서버에서 받아온 Json 파싱 함수)
 	EachAlarmHttpRequest->OnProcessRequestComplete().BindUObject(this, &AFactoryPlayerController::GetEachAlarmDataCallBack);
 
 	// 요청 실행
@@ -521,10 +520,10 @@ void AFactoryPlayerController::GetEachAlarmDataCallBack(FHttpRequestPtr Request,
 		//UE_LOG(LogTemp, Warning, TEXT("AllAlarmAlarmNo : %d,  AllAlarmMCName : %s, AllAlarmContents : %s, AllAlarmThresholdMax : %f, AllAlarmThresholdMin : %d"), AlarmNoResult, *MCNameResult, *ContentsResult, ThresholdMaxResult, ThresholdMinResult);
 	}
 
-	if (IsValid(MainWidget))
-	{
-		MainWidget->SystemPopupView();
-	}
+	//if (IsValid(MainWidget))
+	//{
+	//	MainWidget->SystemPopupView();
+	//}
 	// 파싱 데이터 사용 (해당 함수에서는 델리게이트 사용, 다른 방식으로 사용 가능)
 	//OnGetFruits.Broadcast(CallbackStruct);
 }
