@@ -111,9 +111,13 @@ void UMainWidget::AlarmButtonClicked()
 	AFactoryPlayerController* PC = Cast<AFactoryPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
 	if (IsValid(PC))
 	{
-		FString FacilityNodeID = Cast<AFactoryPlayerController>(GetOwningPlayer())->TargetActor->GetActorLabel();
-		UE_LOG(LogTemp, Warning, TEXT("%s"),*FacilityNodeID);
-		PC->SendEachAlarmHttpRequest(FacilityNodeID);
+		if (IsValid(PC->TargetActor))
+		{
+			FString FacilityNodeID = Cast<AFactoryPlayerController>(GetOwningPlayer())->TargetActor->GetActorLabel();
+			UE_LOG(LogTemp, Warning, TEXT("%s"), *FacilityNodeID);
+			PC->SendEachAlarmHttpRequest(FacilityNodeID);
+		}
+		
 	}
 }
 
