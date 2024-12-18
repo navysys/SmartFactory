@@ -30,6 +30,7 @@ void AFactoryPawn::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	StartPos = GetActorLocation();
 }
 
 // Called every frame
@@ -46,5 +47,10 @@ void AFactoryPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 
 
 
+}
+
+void AFactoryPawn::SetStartPos()
+{
+	SetActorLocation(StartPos);
 }
 

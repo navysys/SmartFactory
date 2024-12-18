@@ -31,7 +31,7 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-
+	void SetStartPos();
 public:
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<USceneComponent> RootComp;
@@ -45,9 +45,8 @@ public:
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UFloatingPawnMovement> PawnMovementComp;
 
-
-public:
-	//UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere)
+	FVector StartPos;
 
 
 

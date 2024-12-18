@@ -15,6 +15,7 @@
 #include "SystemAllPopupWidget.h"
 #include "DataWidget.h"
 #include "Components/ScrollBox.h"
+#include "FactoryPawn.h"
 
 
 void UMainWidget::NativeConstruct()
@@ -101,7 +102,7 @@ void UMainWidget::ExitButtonClicked()
 
 void UMainWidget::HomeButtonClicked()
 {
-	
+	Cast<AFactoryPawn>(GetOwningPlayerPawn())->SetStartPos();
 	// 카메라 위치 초기화
 }
 
