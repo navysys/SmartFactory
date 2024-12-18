@@ -105,7 +105,16 @@ void UMainWidget::ExitButtonClicked()
 void UMainWidget::HomeButtonClicked()
 {
 	Cast<AFactoryPawn>(GetOwningPlayerPawn())->SetStartPos();
-	// 카메라 위치 초기화
+
+	AFactoryPlayerController* FPC = Cast<AFactoryPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
+	if (IsValid(FPC))
+	{
+		if (IsValid(FPC->TargetActor))
+		{
+			Cast<AFactorySourceActor>(FPC->TargetActor)->ResourceHighLightOnOff(true);
+			FPC->TargetActor = nullptr;
+		}
+	}
 }
 
 void UMainWidget::AlarmButtonClicked()
