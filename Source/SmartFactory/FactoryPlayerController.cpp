@@ -19,7 +19,7 @@ void AFactoryPlayerController::BeginPlay()
 
 	SendVCMHttpRequest();
 
-	SendVCMMainHttpRequest();
+	GetWorldTimerManager().SetTimer(SendMainTimerHandle, this, &AFactoryPlayerController::SendVCMMainHttpRequest, 1.0f, true);
 
 	GetWorldTimerManager().SetTimer(TimerHandle, this, &AFactoryPlayerController::SendAllAlarmHttpRequest, 1.0f, true);
 

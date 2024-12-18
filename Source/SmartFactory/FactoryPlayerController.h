@@ -271,6 +271,8 @@ public:
 
 	FTimerHandle TimerHandle;
 
+	FTimerHandle SendMainTimerHandle;
+
 	void MoveStart(const FInputActionValue& Value);
 	void MoveEnd(const FInputActionValue& Value);
 	void RotationStart(const FInputActionValue& Value);
