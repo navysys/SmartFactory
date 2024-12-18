@@ -271,6 +271,7 @@ public:
 
 	FTimerHandle TimerHandle;
 
+	USystemPopupWidget* Systempopup;
 
 	FTimerHandle SendMainTimerHandle;
 

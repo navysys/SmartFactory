@@ -129,14 +129,7 @@ void UMainWidget::AlarmButtonClicked()
 			PC->EachAlarmTimer(FacilityNodeID);
 		}
 
-		if (IsValid(SystemPopupWidget))
-		{
-			USystemPopupWidget* SysPopup = CreateWidget<USystemPopupWidget>(this, SystemPopupWidget);
-			if (IsValid(SysPopup))
-			{
-				SysPopup->AddToViewport();
-			}
-		}
+		
 	}
 }
 
