@@ -271,7 +271,13 @@ public:
 
 	FTimerHandle TimerHandle;
 
+
 	FTimerHandle SendMainTimerHandle;
+
+	FTimerDelegate TimerDelegate;
+
+
+	void EachAlarmTimer(FString FacilityNodeID);
 
 	void MoveStart(const FInputActionValue& Value);
 	void MoveEnd(const FInputActionValue& Value);
@@ -310,7 +316,10 @@ public:
 
 	void GetAllAlarmDataCallBack(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
 
+
+
 	//개별 알람
+	UFUNCTION()
 	void SendEachAlarmHttpRequest(FString FacilityNodeID);
 
 	void GetEachAlarmDataCallBack(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);

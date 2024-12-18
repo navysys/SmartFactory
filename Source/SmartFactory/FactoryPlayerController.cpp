@@ -103,6 +103,18 @@ void AFactoryPlayerController::SetupInputComponent()
 }
 
 
+void AFactoryPlayerController::EachAlarmTimer(FString FacilityNodeID)
+{
+	FString NodeID = FacilityNodeID;
+
+	TimerDelegate.BindUFunction(this, FName("SendEachAlarmHttpRequest"), NodeID);
+
+	GetWorldTimerManager().SetTimer(TimerHandle, 
+		TimerDelegate,
+		1.0f,
+		true);
+}
+
 void AFactoryPlayerController::MoveStart(const FInputActionValue& Value)
 {
 	IsMove = true;
