@@ -267,6 +267,9 @@ public:
 	UPROPERTY(EditAnywhere)
 	TArray<FEachAlarmChildDataStruct> EachDataArray;
 
+	UPROPERTY(EditAnywhere)
+	TArray<AActor*> MakerArray;
+
 	TObjectPtr<AActor> TargetActor;
 
 	FTimerHandle TimerHandle;
