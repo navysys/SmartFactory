@@ -38,6 +38,53 @@ void AFactoryPawn::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	if (IsValid(SpringArmComp))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("SpeedValue : %f"), SpeedValue);
+		
+		float ArmLength = SpringArmComp->TargetArmLength;
+		if (SpeedValue > 0.1f)
+		{
+			if (ArmLength < 400.0f)
+			{
+				Speed = Speed + 50.0f * DeltaTime;
+				if (Speed > 200.0f)
+				{
+					Speed = 200.0f;
+				}
+			}
+			else
+			{
+				SpeedValue = 0;
+			}
+		}
+		else if (SpeedValue < -0.1f)
+		{
+			if (ArmLength > 100.0f)
+			{
+				Speed = Speed - 50.0f * DeltaTime;
+				if (Speed < -200.0f)
+				{
+					Speed = -200.0f;
+				}
+			}
+			else
+			{
+				SpeedValue = 0;
+			}
+		}
+
+		if(SpeedValue == 0)
+		{
+			Speed = Speed - 300.0f * DeltaTime;
+			if (Speed < 0)
+			{
+				Speed = 0;
+			}
+		}
+		SpringArmComp->TargetArmLength -= Speed;
+	}
+
 }
 
 // Called to bind functionality to input
@@ -47,6 +94,15 @@ void AFactoryPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 
 
 
+}
+
+void AFactoryPawn::IncreaseSpringArmLength(bool Value)
+{
+	SpeedValue = Value;
+}
+
+void AFactoryPawn::DecreaseSpringArmLength(bool Value)
+{
 }
 
 void AFactoryPawn::SetStartPos()

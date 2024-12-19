@@ -31,6 +31,9 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	void IncreaseSpringArmLength(bool Value);
+	void DecreaseSpringArmLength(bool Value);
+
 	void SetStartPos();
 public:
 	UPROPERTY(EditAnywhere)
@@ -49,5 +52,7 @@ public:
 	FVector StartPos;
 	FRotator StartRot;
 
+	float SpeedValue = 0;
+	float Speed = 0;
 
 };

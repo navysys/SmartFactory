@@ -259,6 +259,12 @@ public:
 	TObjectPtr<UInputAction> IA_RotationEnd;
 
 	UPROPERTY(EditAnywhere)
+	TObjectPtr<UInputAction> IA_ChangeDistanceUp;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UInputAction> IA_ChangeDistanceDown;
+
+	UPROPERTY(EditAnywhere)
 	TArray<class AFactorySourceActor*> FactorySource;
 
 	UPROPERTY(EditAnywhere)
@@ -284,6 +290,8 @@ public:
 	void MoveEnd(const FInputActionValue& Value);
 	void RotationStart(const FInputActionValue& Value);
 	void RotationEnd(const FInputActionValue& Value);
+	void ChangeDistanceUp(const FInputActionValue& Value);
+	void ChangeDistanceDown(const FInputActionValue& Value);
 
 	void CreateTreeItem(FString NodeID, FString ParentID);
 

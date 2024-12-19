@@ -10,6 +10,7 @@
 #include "JsonUtilities.h"
 #include "SystemPopupWidget.h"
 #include "TimerManager.h"
+#include "FactoryPawn.h"
 
 void AFactoryPlayerController::BeginPlay()
 {
@@ -55,25 +56,11 @@ void AFactoryPlayerController::Tick(float DeltaTime)
 	FVector2D MousePos(PosX, PosY);
 	if (IsMove)
 	{
+		//FMath::FInterpTo
 		FVector2D Dir = (MousePos - CurrentPos).GetSafeNormal();
 		float Dist = FVector2D::Distance(MousePos, CurrentPos) * 0.5f;
-		if (Dir.X > 0.1f)
-		{
-			GetPawn()->SetActorLocation(GetPawn()->GetActorLocation() + Dist * GetPawn()->GetActorRightVector());
-		}
-		else if (Dir.X < -0.1f)
-		{
-			GetPawn()->SetActorLocation(GetPawn()->GetActorLocation() + -Dist * GetPawn()->GetActorRightVector());
-		}
-		
-		if (Dir.Y > 0.1f)
-		{
-			GetPawn()->SetActorLocation(GetPawn()->GetActorLocation() + -Dist * GetPawn()->GetActorUpVector());
-		}
-		else if (Dir.Y < -0.1f)
-		{
-			GetPawn()->SetActorLocation(GetPawn()->GetActorLocation() + Dist * GetPawn()->GetActorUpVector());
-		}
+		//double dLerpTurn = FMath::FInterpTo(0, dDgrees, DeltaTime, 100.0f);
+		//FMath::Clamp()
 		
 		if(IsValid(TargetActor))
 		{
@@ -99,6 +86,7 @@ void AFactoryPlayerController::SetupInputComponent()
 		EnhancedInputComponent->BindAction(IA_MoveEnd, ETriggerEvent::Triggered, this, &AFactoryPlayerController::MoveEnd);
 		EnhancedInputComponent->BindAction(IA_RotationStart, ETriggerEvent::Triggered, this, &AFactoryPlayerController::RotationStart);
 		EnhancedInputComponent->BindAction(IA_RotationEnd, ETriggerEvent::Triggered, this, &AFactoryPlayerController::RotationEnd);
+		EnhancedInputComponent->BindAction(IA_ChangeDistanceUp, ETriggerEvent::Triggered, this, &AFactoryPlayerController::ChangeDistanceUp);
 	}
 }
 
@@ -136,6 +124,26 @@ void AFactoryPlayerController::RotationStart(const FInputActionValue& Value)
 void AFactoryPlayerController::RotationEnd(const FInputActionValue& Value)
 {
 	IsRotation = false;
+}
+
+void AFactoryPlayerController::ChangeDistanceUp(const FInputActionValue& Value)
+{
+	bool Dist = Value.Get<bool>();
+	AFactoryPawn* FPawn = Cast<AFactoryPawn>(GetPawn());
+	if (IsValid(FPawn))
+	{
+		//FPawn->ChangeSpringArmLength(Dist);
+	}
+}
+
+void AFactoryPlayerController::ChangeDistanceDown(const FInputActionValue& Value)
+{
+	bool Dist = Value.Get<bool>();
+	AFactoryPawn* FPawn = Cast<AFactoryPawn>(GetPawn());
+	if (IsValid(FPawn))
+	{
+		//FPawn->ChangeSpringArmLength(Dist);
+	}
 }
 
 void AFactoryPlayerController::CreateTreeItem(FString NodeID, FString ParentID)
