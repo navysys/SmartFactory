@@ -29,6 +29,9 @@ public:
 	UFUNCTION()
 	void CheckData(float DataValue);
 
+	UFUNCTION()
+	void AttachActor(FVector ActorLocation);
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

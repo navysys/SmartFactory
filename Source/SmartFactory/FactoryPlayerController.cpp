@@ -12,6 +12,7 @@
 #include "TimerManager.h"
 #include <Kismet/GameplayStatics.h>
 #include "Maker.h"
+#include "FactoryPawn.h"
 
 void AFactoryPlayerController::BeginPlay()
 {
@@ -391,9 +392,7 @@ void AFactoryPlayerController::GetVCMMainDataCallBack(FHttpRequestPtr Request, F
 			{
 				AMaker* MakerActor = Cast<AMaker>(FoundActor);
 				MakerActor->CheckData(DataValueResult);
-
 			}
-
 		}
 
 		//UE_LOG(LogTemp, Warning, TEXT("ItemId : %s,  DataName : %s, VCID : %s, VCName : %s, DataValue : %d"), *ItemIdResult, *DataNameResult, *VCIDResult, *VCNameResult, DataValueResult);

@@ -23,7 +23,7 @@ AMaker::AMaker()
 void AMaker::CheckData(float DataValue)
 {
 		// 값에 따라 색상 변경
-		if (DataValue >= 10.0f && DataValue <= 20.0f)
+		if (DataValue >= 0.0f && DataValue <= 2.0f)
 		{
 			MakerMesh->SetMaterial(0, Green);
 		}
@@ -31,6 +31,13 @@ void AMaker::CheckData(float DataValue)
 		{
 			MakerMesh->SetMaterial(0, Red);
 		}
+}
+
+void AMaker::AttachActor(FVector ActorLocation)
+{
+	FVector AttachLocation = ActorLocation + FVector(0.0f, 0.0f, 30.0f);
+
+	SetActorLocation(AttachLocation);
 }
 
 // Called when the game starts or when spawned

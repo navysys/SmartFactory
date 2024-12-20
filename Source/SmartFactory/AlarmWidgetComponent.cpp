@@ -70,10 +70,9 @@ void UAlarmWidgetComponent::ModifyButtonCallBack()
 
 void UAlarmWidgetComponent::ExecuteButtonCallBack()
 {
-
     AFactoryPlayerController* FactoryPlayerController = Cast<AFactoryPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
 
-   AlarmMaker =  FactoryPlayerController->MakerArray[0];
+    AlarmMaker =  FactoryPlayerController->MakerArray[0];
 
     UE_LOG(LogTemp, Warning, TEXT("ExecuteButton Clicked"));
 
@@ -82,6 +81,5 @@ void UAlarmWidgetComponent::ExecuteButtonCallBack()
         AMaker* Maker = Cast<AMaker>(AlarmMaker);
         Maker->MakerMesh->bHiddenInGame = false;
         UE_LOG(LogTemp, Warning, TEXT("AlarmMaker false"));
-
     }
 }
