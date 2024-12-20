@@ -3,22 +3,28 @@
 
 #include "ItemWidget.h"
 #include "Components/TextBlock.h"
+#include "Components/Button.h"
 #include "Kismet/GameplayStatics.h"
 #include "FactorySourceActor.h"
 #include "FactoryPlayerController.h"
+#include "Components/TreeView.h"
 
 
 void UItemWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	
+	if (IsValid(ListButton))
+	{
+		ListButton->OnClicked.AddDynamic(this, &UItemWidget::ListButtonClicked);
+	}
 }
 
 void UItemWidget::NativeOnListItemObjectSet(UObject* ListItemObject)
 {
 	
 	UItemWidget* Item = Cast<UItemWidget>(ListItemObject);
+	RootItem = Item;
 	ItemName->SetText(FText::FromString(Item->NodeID));
 
 	//
@@ -38,6 +44,25 @@ void UItemWidget::NativeOnListItemObjectSet(UObject* ListItemObject)
 		{
 			UE_LOG(LogTemp, Warning, TEXT("Find Actor"));
 			Item->Actor = FindActor;
+		}
+	}
+}
+
+void UItemWidget::ListButtonClicked()
+{
+	UTreeView* TreeView = Cast<UTreeView>(GetOwningListView());
+	if (IsValid(TreeView))
+	{
+		
+		if (IsExpansion)
+		{
+			TreeView->SetItemExpansion(RootItem, false);
+			IsExpansion = false;
+		}
+		else
+		{
+			TreeView->SetItemExpansion(RootItem, true);
+			IsExpansion = true;
 		}
 	}
 }

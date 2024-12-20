@@ -183,6 +183,7 @@ void UMainWidget::AddChildToItem(UItemWidget* ParentItem, UItemWidget* NewChildI
 		ParentItem->Children.Add(NewChildItem);
 
 		// Tree View 갱신
+		ParentItem->IsExpansion = true;
 		TreeView->SetItemExpansion(ParentItem, true); // 부모 노드를 확장
 		TreeView->RequestRefresh();
 	}
@@ -229,9 +230,11 @@ void UMainWidget::OnTreeViewItemClicked(UObject* ClickedItem)
 				}
 			}
 		}
-
+		TreeItem->IsExpansion = true;
+		TreeView->SetItemExpansion(ClickedItem, true);
 	}
-	TreeView->SetItemExpansion(ClickedItem, true);
+	
+	
 }
 
 void UMainWidget::UpdateDataWidget(FString VCName, FString DataName, float DataValue)

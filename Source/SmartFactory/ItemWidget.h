@@ -9,6 +9,7 @@
 
 
 class UTextBlock;
+class UButton;
 
 UCLASS()
 class SMARTFACTORY_API UItemWidget : public UUserWidget, public IUserObjectListEntry
@@ -19,6 +20,12 @@ public:
 	virtual void NativeConstruct() override;
 	virtual void NativeOnListItemObjectSet(UObject* ListItemObject) override;
 
+	UFUNCTION()
+	void ListButtonClicked();
+
+	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
+	TObjectPtr<UButton> ListButton;
+
 	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
 	TObjectPtr<UTextBlock> ItemName;
 
@@ -28,4 +35,8 @@ public:
 	FString NodeID;
 
 	AActor* Actor;
+
+	bool IsExpansion = true;
+
+	UItemWidget* RootItem;
 };

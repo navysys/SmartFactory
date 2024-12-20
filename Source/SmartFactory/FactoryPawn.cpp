@@ -40,8 +40,6 @@ void AFactoryPawn::Tick(float DeltaTime)
 
 	if (IsValid(SpringArmComp))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("SpeedValue : %f"), SpeedValue);
-		
 		float ArmLength = SpringArmComp->TargetArmLength;
 		if (SpeedValue > 0.1f)
 		{
