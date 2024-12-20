@@ -41,7 +41,6 @@ void AFactoryPawn::Tick(float DeltaTime)
 	if (IsValid(SpringArmComp))
 	{
 		
-		
 		float ArmLength = SpringArmComp->TargetArmLength;
 		if (SpeedValue > 0.1f)
 		{
