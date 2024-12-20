@@ -18,6 +18,7 @@
 #include "FactoryPawn.h"
 #include "Blueprint/UserWidget.h"
 #include "TimerManager.h"
+#include "Maker.h"
 
 
 void UMainWidget::NativeConstruct()
@@ -196,7 +197,19 @@ void UMainWidget::OnTreeViewItemClicked(UObject* ClickedItem)
 
 	if (UItemWidget* TreeItem = Cast<UItemWidget>(ClickedItem))
 	{
+		AFactoryPlayerController* PC = Cast<AFactoryPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
+
 		AFactorySourceActor* SourceActor = Cast<AFactorySourceActor>(TreeItem->Actor);
+
+		FVector ActorLocation =  SourceActor->CameraPosition->GetComponentLocation();
+
+		AMaker* Maker = Cast<AMaker>(PC->MakerArray[0]);
+
+		if (IsValid(Maker))
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Maker Casting Successed"));
+			Maker->AttachActor(ActorLocation);
+		}
 
 		if (TreeItem->Children.Num() == 0)
 		{

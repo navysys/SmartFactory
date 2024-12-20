@@ -87,4 +87,7 @@ public:
 	TArray<UDataWidget*> Datas;
 
 	FTimerHandle TimerHandle;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TObjectPtr<AActor> MakerActor;
 };
