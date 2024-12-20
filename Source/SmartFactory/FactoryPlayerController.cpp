@@ -10,7 +10,8 @@
 #include "JsonUtilities.h"
 #include "SystemPopupWidget.h"
 #include "TimerManager.h"
-#include "FactoryPawn.h"
+#include <Kismet/GameplayStatics.h>
+#include "Maker.h"
 
 void AFactoryPlayerController::BeginPlay()
 {
@@ -381,6 +382,20 @@ void AFactoryPlayerController::GetVCMMainDataCallBack(FHttpRequestPtr Request, F
 			MainWidget->UpdateDataWidget(VCNameResult, DataNameResult, DataValueResult);
 		}
 
+
+
+		if (DataNameResult == "MN1A_D206_DRV1_ELP2_TRQ_FBK")
+		{
+			AActor* FoundActor = UGameplayStatics::GetActorOfClass(GetWorld(), AMaker::StaticClass());
+			if (IsValid(FoundActor))
+			{
+				AMaker* MakerActor = Cast<AMaker>(FoundActor);
+				MakerActor->CheckData(DataValueResult);
+
+			}
+
+		}
+
 		//UE_LOG(LogTemp, Warning, TEXT("ItemId : %s,  DataName : %s, VCID : %s, VCName : %s, DataValue : %d"), *ItemIdResult, *DataNameResult, *VCIDResult, *VCNameResult, DataValueResult);
 	}
 	// 파싱 데이터 사용 (해당 함수에서는 델리게이트 사용, 다른 방식으로 사용 가능)
@@ -452,7 +467,7 @@ void AFactoryPlayerController::GetAllAlarmDataCallBack(FHttpRequestPtr Request, 
 		RootData.Get()->AsObject()->TryGetStringField(TEXT("dataType_2"), alarm.dataType2);
 		RootData.Get()->AsObject()->TryGetStringField(TEXT("alarmStatus"), alarm.alarmStatus);
 
-		UE_LOG(LogTemp, Warning, TEXT("alarmno : %d"), alarm.AlarmNo);
+		//UE_LOG(LogTemp, Warning, TEXT("alarmno : %d"), alarm.AlarmNo);
 
 		AllDataArray.Add(alarm);
 	}
@@ -524,7 +539,7 @@ void AFactoryPlayerController::GetEachAlarmDataCallBack(FHttpRequestPtr Request,
 		RootData.Get()->AsObject()->TryGetNumberField(TEXT("thresholdMax"), alarm.ThresholdMax);
 		RootData.Get()->AsObject()->TryGetNumberField(TEXT("thresholdMin"), alarm.ThresholdMin);
 
-		UE_LOG(LogTemp, Warning, TEXT("alarmno : %d"), alarm.AlarmNo);
+		//UE_LOG(LogTemp, Warning, TEXT("alarmno : %d"), alarm.AlarmNo);
 
 		EachDataArray.Add(alarm);
 		//UE_LOG(LogTemp, Warning, TEXT("AllAlarmAlarmNo : %d,  AllAlarmMCName : %s, AllAlarmContents : %s, AllAlarmThresholdMax : %f, AllAlarmThresholdMin : %d"), AlarmNoResult, *MCNameResult, *ContentsResult, ThresholdMaxResult, ThresholdMinResult);

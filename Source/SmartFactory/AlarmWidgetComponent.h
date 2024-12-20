@@ -52,8 +52,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<UUserWidget> ChangeAlarm;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TObjectPtr<AActor> AlarmMaker;
+
 	void AddRow(const FEachAlarmChildDataStruct& FilteredData);
 
 	UFUNCTION(BlueprintCallable)
 	void ModifyButtonCallBack();
+
+	UFUNCTION(BlueprintCallable)
+	void ExecuteButtonCallBack();
 };

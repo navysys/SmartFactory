@@ -8,6 +8,7 @@
 #include <Components/VerticalBox.h>
 #include <Components/VerticalBoxSlot.h>
 #include "ChangeAlarmWidget.h"
+#include "Maker.h"
 
 
 void UAlarmWidgetComponent::NativeConstruct()
@@ -23,9 +24,10 @@ void UAlarmWidgetComponent::NativeConstruct()
         ModifyButton->OnClicked.AddDynamic(this, &UAlarmWidgetComponent::ModifyButtonCallBack);
     }
 
-	/*AFactoryPlayerController* FactoryPlayerController = Cast<AFactoryPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
-
-	AddRow(FactoryPlayerController->FullDataArray);*/
+    if (IsValid(ExecuteButton))
+    {
+        ExecuteButton->OnClicked.AddDynamic(this, &UAlarmWidgetComponent::ExecuteButtonCallBack);
+    }
 }
 
 void UAlarmWidgetComponent::AddRow(const FEachAlarmChildDataStruct& FilteredData)
@@ -63,5 +65,23 @@ void UAlarmWidgetComponent::ModifyButtonCallBack()
     if(IsValid(ChangeAlarmWidget))
     {
         ChangeAlarmWidget->AddToViewport();
+    }
+}
+
+void UAlarmWidgetComponent::ExecuteButtonCallBack()
+{
+
+    AFactoryPlayerController* FactoryPlayerController = Cast<AFactoryPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
+
+   AlarmMaker =  FactoryPlayerController->MakerArray[0];
+
+    UE_LOG(LogTemp, Warning, TEXT("ExecuteButton Clicked"));
+
+    if (IsValid(AlarmMaker))
+    {
+        AMaker* Maker = Cast<AMaker>(AlarmMaker);
+        Maker->MakerMesh->bHiddenInGame = false;
+        UE_LOG(LogTemp, Warning, TEXT("AlarmMaker false"));
+
     }
 }
