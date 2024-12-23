@@ -55,6 +55,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<AActor> AlarmMaker;
 
+	bool bIsMakerSee = false;
+
 	void AddRow(const FEachAlarmChildDataStruct& FilteredData);
 
 	UFUNCTION(BlueprintCallable)

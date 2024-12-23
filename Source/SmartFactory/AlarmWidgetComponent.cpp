@@ -74,12 +74,25 @@ void UAlarmWidgetComponent::ExecuteButtonCallBack()
 
     AlarmMaker =  FactoryPlayerController->MakerArray[0];
 
-    UE_LOG(LogTemp, Warning, TEXT("ExecuteButton Clicked"));
-
-    if (IsValid(AlarmMaker))
+    if (bIsMakerSee == false)
     {
-        AMaker* Maker = Cast<AMaker>(AlarmMaker);
-        Maker->MakerMesh->bHiddenInGame = false;
-        UE_LOG(LogTemp, Warning, TEXT("AlarmMaker false"));
+        if (IsValid(AlarmMaker))
+        {
+            AMaker* Maker = Cast<AMaker>(AlarmMaker);
+            Maker->MakerMesh->bHiddenInGame = false;
+            UE_LOG(LogTemp, Warning, TEXT("AlarmMaker false"));
+            bIsMakerSee = true;
+        }
     }
+    else
+    {
+        if (IsValid(AlarmMaker))
+        {
+            AMaker* Maker = Cast<AMaker>(AlarmMaker);
+            Maker->MakerMesh->bHiddenInGame = true;
+            UE_LOG(LogTemp, Warning, TEXT("AlarmMaker true"));
+            bIsMakerSee = false;
+        }
+    }
+    
 }
