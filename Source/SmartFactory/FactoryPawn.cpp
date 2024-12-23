@@ -83,7 +83,7 @@ void AFactoryPawn::Tick(float DeltaTime)
 		}
 		SpringArmComp->TargetArmLength -= Speed;
 	}
-
+	
 }
 
 // Called to bind functionality to input
