@@ -53,20 +53,36 @@ void AFactoryPlayerController::BeginPlay()
 
 void AFactoryPlayerController::Tick(float DeltaTime)
 {
-	float CurrentX = PosX;
-	float CurrentY = PosY;
-	GetMousePosition(PosX, PosY);
-
-	if (IsMove)
+	if (IsTracking)
 	{
-		float LerpX = FMath::VInterpTo(CurrentX, PosX, DeltaTime, 1.0f);
-		float LerpY = FMath::FInterpTo(CurrentY, PosY, DeltaTime, 1.0f);
+		FVector LerpVector = FMath::VInterpTo(GetPawn()->GetActorLocation(), Cast<AFactorySourceActor>(TargetActor)->CameraPosition->GetComponentLocation(), DeltaTime, 5.0f);
+		GetPawn()->SetActorLocation(LerpVector);
+		if (FVector::Dist(GetPawn()->GetActorLocation(), Cast<AFactorySourceActor>(TargetActor)->CameraPosition->GetComponentLocation()) < 3.0f)
+		{
+			IsTracking = false;
+		}
+	}
+	else if (IsMove)
+	{
+		float LerpX = FMath::FInterpTo(0, PosX, DeltaTime, 100.0f);
+		float LerpY = FMath::FInterpTo(0, PosY, DeltaTime, 100.0f);
+		FVector LerpVector = FMath::VInterpTo(GetPawn()->GetActorLocation(), GetPawn()->GetActorLocation() + FVector(0, PosX*5.0f, PosY*5.0f), DeltaTime, 5.0f);
+		
 
-		UE_LOG(LogTemp, Warning, TEXT("LerpX : %f"), LerpX);
+		GetPawn()->SetActorLocation(LerpVector);
+	}
+	else if (IsRotation)
+	{
+		float LerpYaw = FMath::FInterpTo(0, PosX, DeltaTime, 30.0f);
 
-		GetPawn()->SetActorLocation(GetPawn()->GetActorLocation() + FVector(LerpX * DeltaTime, + LerpY * DeltaTime, 0));
+		GetPawn()->SetActorRotation(GetPawn()->GetActorRotation() + FRotator(0, LerpYaw, 0));
 	}
 
+
+	if (IsDistanceBetween)
+	{
+
+	}
 }
 
 void AFactoryPlayerController::SetupInputComponent()
@@ -80,6 +96,7 @@ void AFactoryPlayerController::SetupInputComponent()
 		EnhancedInputComponent->BindAction(IA_RotationStart, ETriggerEvent::Triggered, this, &AFactoryPlayerController::RotationStart);
 		EnhancedInputComponent->BindAction(IA_RotationEnd, ETriggerEvent::Triggered, this, &AFactoryPlayerController::RotationEnd);
 		EnhancedInputComponent->BindAction(IA_ChangeDistanceUp, ETriggerEvent::Triggered, this, &AFactoryPlayerController::ChangeDistanceUp);
+		EnhancedInputComponent->BindAction(IA_MousePosition, ETriggerEvent::Triggered, this, &AFactoryPlayerController::MousePosition);
 	}
 }
 
@@ -121,7 +138,7 @@ void AFactoryPlayerController::RotationEnd(const FInputActionValue& Value)
 
 void AFactoryPlayerController::ChangeDistanceUp(const FInputActionValue& Value)
 {
-	bool Dist = Value.Get<bool>();
+	float Dist = Value.Get<float>();
 	AFactoryPawn* FPawn = Cast<AFactoryPawn>(GetPawn());
 	if (IsValid(FPawn))
 	{
@@ -137,6 +154,14 @@ void AFactoryPlayerController::ChangeDistanceDown(const FInputActionValue& Value
 	{
 		//FPawn->ChangeSpringArmLength(Dist);
 	}
+}
+
+void AFactoryPlayerController::MousePosition(const FInputActionValue& Value)
+{
+	FVector2D XY = Value.Get<FVector2D>();
+	UE_LOG(LogTemp, Warning, TEXT("%s"), *XY.ToString());
+	PosX = XY.X;
+	PosY = XY.Y;
 }
 
 void AFactoryPlayerController::CreateTreeItem(FString NodeID, FString ParentID)

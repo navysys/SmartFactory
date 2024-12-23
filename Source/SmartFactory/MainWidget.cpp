@@ -215,9 +215,6 @@ void UMainWidget::OnTreeViewItemClicked(UObject* ClickedItem)
 		{
 			if (IsValid(SourceActor))
 			{
-
-				GetOwningPlayer()->GetPawn()->SetActorLocation(SourceActor->CameraPosition->GetComponentLocation());
-
 				TArray<AFactorySourceActor*> Source = Cast<AFactoryPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0))->FactorySource;
 				for (AFactorySourceActor* FActor : Source)
 				{
@@ -225,6 +222,8 @@ void UMainWidget::OnTreeViewItemClicked(UObject* ClickedItem)
 				}
 				SourceActor->ResourceHighLightOnOff(false);
 				Cast<AFactoryPlayerController>(GetOwningPlayer())->TargetActor = SourceActor;
+
+				Cast<AFactoryPlayerController>(GetOwningPlayer())->IsTracking = true;
 			}
 		}
 		else

@@ -265,6 +265,9 @@ public:
 	TObjectPtr<UInputAction> IA_ChangeDistanceDown;
 
 	UPROPERTY(EditAnywhere)
+	TObjectPtr<UInputAction> IA_MousePosition;
+
+	UPROPERTY(EditAnywhere)
 	TArray<class AFactorySourceActor*> FactorySource;
 
 	UPROPERTY(EditAnywhere)
@@ -295,11 +298,14 @@ public:
 	void RotationEnd(const FInputActionValue& Value);
 	void ChangeDistanceUp(const FInputActionValue& Value);
 	void ChangeDistanceDown(const FInputActionValue& Value);
+	void MousePosition(const FInputActionValue& Value);
 
 	void CreateTreeItem(FString NodeID, FString ParentID);
 
+	bool IsTracking;
 	bool IsMove;
 	bool IsRotation;
+	bool IsDistanceBetween;
 
 	float PosX = 0;
 	float PosY = 0;
