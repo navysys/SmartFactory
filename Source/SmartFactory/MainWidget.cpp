@@ -39,6 +39,11 @@ void UMainWidget::NativeConstruct()
 		HomeButton->OnClicked.AddDynamic(this, &UMainWidget::HomeButtonClicked);
 	}
 
+	if (IsValid(HomeButton))
+	{
+		WebCamButton->OnClicked.AddDynamic(this, &UMainWidget::WebCamButtonClicked);
+	}
+
 	if (IsValid(AlarmButton))
 	{
 		AlarmButton->OnClicked.AddDynamic(this, &UMainWidget::AlarmButtonClicked);
@@ -116,6 +121,12 @@ void UMainWidget::HomeButtonClicked()
 			FPC->TargetActor = nullptr;
 		}
 	}
+}
+
+void UMainWidget::WebCamButtonClicked()
+{
+	CreateWidget<UUserWidget>(this, WebCam)->AddToViewport();
+	
 }
 
 void UMainWidget::AlarmButtonClicked()

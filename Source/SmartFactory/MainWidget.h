@@ -33,6 +33,9 @@ public:
 	void HomeButtonClicked();
 
 	UFUNCTION()
+	void WebCamButtonClicked();
+
+	UFUNCTION()
 	void AlarmButtonClicked();
 
 	UFUNCTION()
@@ -57,6 +60,9 @@ public:
 	TObjectPtr<UButton> HomeButton;
 
 	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UButton> WebCamButton;
+
+	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UTreeView> TreeView;
 
 	UPROPERTY(meta = (BindWidget))
@@ -76,6 +82,9 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<class USystemAllPopupWidget> SystemAllPopupWidget;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UUserWidget> WebCam;
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UDataWidget> DataWidgetClass;
