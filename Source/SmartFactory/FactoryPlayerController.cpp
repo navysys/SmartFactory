@@ -53,29 +53,20 @@ void AFactoryPlayerController::BeginPlay()
 
 void AFactoryPlayerController::Tick(float DeltaTime)
 {
-	FVector2D CurrentPos(PosX, PosY);
+	float CurrentX = PosX;
+	float CurrentY = PosY;
 	GetMousePosition(PosX, PosY);
-	FVector2D MousePos(PosX, PosY);
+
 	if (IsMove)
 	{
-		//FMath::FInterpTo
-		FVector2D Dir = (MousePos - CurrentPos).GetSafeNormal();
-		float Dist = FVector2D::Distance(MousePos, CurrentPos) * 0.5f;
-		//double dLerpTurn = FMath::FInterpTo(0, dDgrees, DeltaTime, 100.0f);
-		//FMath::Clamp()
-		
-		if(IsValid(TargetActor))
-		{
-			Cast<AFactorySourceActor>(TargetActor)->ResourceHighLightOnOff(true);
-			TargetActor = nullptr;
-		}
+		float LerpX = FMath::VInterpTo(CurrentX, PosX, DeltaTime, 1.0f);
+		float LerpY = FMath::FInterpTo(CurrentY, PosY, DeltaTime, 1.0f);
 
+		UE_LOG(LogTemp, Warning, TEXT("LerpX : %f"), LerpX);
+
+		GetPawn()->SetActorLocation(GetPawn()->GetActorLocation() + FVector(LerpX * DeltaTime, + LerpY * DeltaTime, 0));
 	}
-	else if (IsRotation)
-	{
-		float RotInput = MousePos.X - CurrentPos.X;
-		GetPawn()->SetActorRotation(FRotator(0, GetPawn()->GetActorRotation().Yaw + RotInput * 0.1f, 0));
-	}
+
 }
 
 void AFactoryPlayerController::SetupInputComponent()
