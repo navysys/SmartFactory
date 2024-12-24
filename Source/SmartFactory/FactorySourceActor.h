@@ -34,6 +34,6 @@ public:
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UMeshComponent> MeshComp;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<USceneComponent> CameraPosition;
 };

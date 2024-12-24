@@ -62,7 +62,7 @@ public:
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UButton> WebCamButton;
 
-	UPROPERTY(meta = (BindWidget))
+	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	TObjectPtr<UTreeView> TreeView;
 
 	UPROPERTY(meta = (BindWidget))
