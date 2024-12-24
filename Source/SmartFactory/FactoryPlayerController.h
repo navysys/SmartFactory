@@ -279,6 +279,7 @@ public:
 	UPROPERTY(EditAnywhere)
 	TArray<AActor*> MakerArray;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<AActor> TargetActor;
 
 	FTimerHandle TimerHandle;
