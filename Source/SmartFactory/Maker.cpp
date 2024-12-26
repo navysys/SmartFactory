@@ -37,8 +37,6 @@ void AMaker::AttachActor(FVector ActorLocation)
 {
 	FVector AttachLocation = ActorLocation + FVector(0.0f, 0.0f, 30.0f);
 
-	UE_LOG(LogTemp, Warning, TEXT("AttachActor"));
-
 	SetActorLocation(AttachLocation);
 }
 

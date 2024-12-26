@@ -115,10 +115,10 @@ void UMainWidget::HomeButtonClicked()
 	AFactoryPlayerController* FPC = Cast<AFactoryPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
 	if (IsValid(FPC))
 	{
-		if (IsValid(FPC->TargetActor))
+		TArray<AFactorySourceActor*> Source = FPC->FactorySource;
+		for (AFactorySourceActor* FActor : Source)
 		{
-			Cast<AFactorySourceActor>(FPC->TargetActor)->ResourceHighLightOnOff(true);
-			FPC->TargetActor = nullptr;
+			FActor->ResourceHighLightOnOff(true);
 		}
 	}
 }
@@ -136,7 +136,7 @@ void UMainWidget::AlarmButtonClicked()
 	{
 		if (IsValid(PC->TargetActor))
 		{
-			FString FacilityNodeID = Cast<AFactoryPlayerController>(GetOwningPlayer())->TargetActor->GetActorLabel();
+			FString FacilityNodeID = Cast<AFactoryPlayerController>(GetOwningPlayer())->TargetActor->GetActorNameOrLabel();
 			UE_LOG(LogTemp, Warning, TEXT("%s"), *FacilityNodeID);
 			PC->EachAlarmTimer(FacilityNodeID);
 		}
@@ -159,6 +159,7 @@ void UMainWidget::CreateTreeItem(FString NodeID, FString ParentID)
 		RootItem->NodeID = NodeID;
 
 		Items.Add(RootItem);
+		UE_LOG(LogTemp, Warning, TEXT("%d"), Items.Num());
 	}
 	else
 	{
@@ -212,14 +213,16 @@ void UMainWidget::OnTreeViewItemClicked(UObject* ClickedItem)
 
 		AFactorySourceActor* SourceActor = Cast<AFactorySourceActor>(TreeItem->Actor);
 
-		FVector ActorLocation =  SourceActor->CameraPosition->GetComponentLocation();
-
-		AMaker* Maker = Cast<AMaker>(PC->MakerArray[0]);
-
-		if (IsValid(Maker))
+		if (IsValid(SourceActor))
 		{
-			UE_LOG(LogTemp, Warning, TEXT("Maker Casting Successed"));
-			Maker->AttachActor(ActorLocation);
+			FVector ActorLocation = SourceActor->CameraPosition->GetComponentLocation();
+
+			AMaker* Maker = Cast<AMaker>(PC->MakerArray[0]);
+
+			if (IsValid(Maker))
+			{
+				Maker->AttachActor(ActorLocation);
+			}
 		}
 
 		if (TreeItem->Children.Num() == 0)
@@ -239,18 +242,28 @@ void UMainWidget::OnTreeViewItemClicked(UObject* ClickedItem)
 		}
 		else
 		{
-			TArray<AFactorySourceActor*> Source = Cast<AFactoryPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0))->FactorySource;
-			for (AFactorySourceActor* FActor : Source)
+			if (IsValid(TreeItem))
 			{
-				FActor->ResourceHighLightOnOff(true);
-			}
-			for (UItemWidget* ChildItem : TreeItem->Children)
-			{
-				AFactorySourceActor* ChildActor = Cast<AFactorySourceActor>(ChildItem->Actor);
-				if (IsValid(ChildActor))
+				FVector RootPosition;
+				TArray<AFactorySourceActor*> Source = Cast<AFactoryPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0))->FactorySource;
+				for (AFactorySourceActor* FActor : Source)
 				{
-					ChildActor->ResourceHighLightOnOff(false);
+					
+					FActor->ResourceHighLightOnOff(true);
 				}
+
+				for (UItemWidget* ChildItem : TreeItem->Children)
+				{
+					AFactorySourceActor* ChildActor = Cast<AFactorySourceActor>(ChildItem->Actor);
+					if (IsValid(ChildActor))
+					{
+						ChildActor->ResourceHighLightOnOff(false);
+					}
+					RootPosition = RootPosition + ChildActor->CameraPosition->GetComponentLocation();
+				}
+
+				RootPosition = RootPosition / TreeItem->Children.Num();
+				PC->GetPawn()->SetActorLocation(RootPosition);
 			}
 		}
 		TreeItem->IsExpansion = true;

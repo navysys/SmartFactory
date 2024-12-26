@@ -39,10 +39,10 @@ void UItemWidget::NativeOnListItemObjectSet(UObject* ListItemObject)
 
 	for (AFactorySourceActor* FindActor : AllActor)
 	{
-		FString ActorName = FindActor->GetActorLabel();
+		/*UE_LOG(LogTemp, Warning, TEXT("FInd Actor %s"), *FindActor->GetActorNameOrLabel());*/
+		FString ActorName = FindActor->GetActorNameOrLabel();
 		if (ActorName == Item->NodeID)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("Find Actor"));
 			Item->Actor = FindActor;
 		}
 	}
