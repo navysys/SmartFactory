@@ -31,8 +31,7 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	void IncreaseSpringArmLength(bool Value);
-	void DecreaseSpringArmLength(bool Value);
+	void ChangeSpringArmLength(float Value);
 
 	void SetStartPos();
 public:
@@ -55,4 +54,5 @@ public:
 	float SpeedValue = 0;
 	float Speed = 0;
 
+	float TargetLength;
 };

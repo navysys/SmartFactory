@@ -142,7 +142,7 @@ void AFactoryPlayerController::ChangeDistanceUp(const FInputActionValue& Value)
 	AFactoryPawn* FPawn = Cast<AFactoryPawn>(GetPawn());
 	if (IsValid(FPawn))
 	{
-		//FPawn->ChangeSpringArmLength(Dist);
+		FPawn->ChangeSpringArmLength(Dist);
 	}
 }
 

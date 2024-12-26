@@ -31,6 +31,7 @@ void AFactoryPawn::BeginPlay()
 	Super::BeginPlay();
 	
 	StartPos = GetActorLocation();
+	TargetLength = 0.0f;
 }
 
 // Called every frame
@@ -38,8 +39,13 @@ void AFactoryPawn::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-
-	
+	if (TargetLength >= 0.1 || TargetLength <= -0.1f)
+	{
+		float Value = FMath::FInterpTo(0, TargetLength, DeltaTime, 5.0f);
+		//UE_LOG(LogTemp, Warning, TEXT("%f"), Value);
+		SpringArmComp->TargetArmLength += Value;
+		TargetLength -= Value;
+	}
 }
 
 // Called to bind functionality to input
@@ -49,6 +55,11 @@ void AFactoryPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 
 
 
+}
+
+void AFactoryPawn::ChangeSpringArmLength(float Value)
+{
+	TargetLength -= Value * 50.0f;
 }
 
 
