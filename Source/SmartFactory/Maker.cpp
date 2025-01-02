@@ -17,13 +17,15 @@ AMaker::AMaker()
 
 	MakerMesh->SetupAttachment(RootComponent);
 
-	MakerMesh->bHiddenInGame = true;
+	//MakerMesh->bHiddenInGame = true;
+
+	MakerMesh->SetVisibility(false);
 }
 
 void AMaker::CheckData(float DataValue)
 {
 		// 값에 따라 색상 변경
-		if (DataValue >= 0.0f && DataValue <= 2.0f)
+		if (DataValue >= 30.0f && DataValue <= 40.0f)
 		{
 			MakerMesh->SetMaterial(0, Green);
 		}

@@ -54,6 +54,9 @@ public:
 	TObjectPtr<UButton> SettingButton;
 
 	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UButton> ObserverButton;
+
+	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UButton> ExitButton;
 
 	UPROPERTY(meta = (BindWidget))

@@ -79,7 +79,7 @@ void UAlarmWidgetComponent::ExecuteButtonCallBack()
         if (IsValid(AlarmMaker))
         {
             AMaker* Maker = Cast<AMaker>(AlarmMaker);
-            Maker->MakerMesh->bHiddenInGame = false;
+            Maker->MakerMesh->SetVisibility(true);
             UE_LOG(LogTemp, Warning, TEXT("AlarmMaker false"));
             bIsMakerSee = true;
         }
@@ -89,7 +89,7 @@ void UAlarmWidgetComponent::ExecuteButtonCallBack()
         if (IsValid(AlarmMaker))
         {
             AMaker* Maker = Cast<AMaker>(AlarmMaker);
-            Maker->MakerMesh->bHiddenInGame = true;
+            Maker->MakerMesh->SetVisibility(false);
             UE_LOG(LogTemp, Warning, TEXT("AlarmMaker true"));
             bIsMakerSee = false;
         }

@@ -115,6 +115,7 @@ void UMainWidget::HomeButtonClicked()
 	AFactoryPlayerController* FPC = Cast<AFactoryPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
 	if (IsValid(FPC))
 	{
+		FPC->TargetActor = nullptr;
 		TArray<AFactorySourceActor*> Source = FPC->FactorySource;
 		for (AFactorySourceActor* FActor : Source)
 		{
